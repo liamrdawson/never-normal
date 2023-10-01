@@ -23,9 +23,7 @@ export default function Posts() {
 				))}
 			</ul>
 			<div>
-				<Link to='admin' className='text-red-600 underline'>
-					Admin
-				</Link>
+				<Link to='admin'>Admin</Link>
 			</div>
 		</main>
 	)

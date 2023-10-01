@@ -1,5 +1,5 @@
 import { json } from '@remix-run/node'
-import { Link, useLoaderData } from '@remix-run/react'
+import { Link, useLoaderData, Outlet } from '@remix-run/react'
 
 import { getPosts } from '~/models/post.server'
 
@@ -10,21 +10,21 @@ export const loader = async () => {
 export default function PostAdmin() {
 	const { posts } = useLoaderData<typeof loader>()
 	return (
-		<div className='mx-auto max-w-4xl'>
-			<h1 className='my-6 mb-2 border-b-2 text-center text-3xl'>Blog Admin</h1>
-			<div className='grid grid-cols-4 gap-6'>
-				<nav className='col-span-4 md:col-span-1'>
+		<div>
+			<h1>Blog Admin</h1>
+			<div>
+				<nav>
 					<ul>
 						{posts.map((post) => (
 							<li key={post.slug}>
-								<Link to={post.slug} className='text-blue-600 underline'>
-									{post.title}
-								</Link>
+								<Link to={post.slug}>{post.title}</Link>
 							</li>
 						))}
 					</ul>
 				</nav>
-				<main className='col-span-4 md:col-span-3'>...</main>
+				<main>
+					<Outlet />
+				</main>
 			</div>
 		</div>
 	)
