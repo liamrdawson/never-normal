@@ -1,5 +1,5 @@
 import type { Post } from '@prisma/client'
-import { prisma } from '../db.server'
+import { prisma } from '~/db.server'
 import { v4 as uuidv4 } from 'uuid'
 
 export async function getPosts() {
