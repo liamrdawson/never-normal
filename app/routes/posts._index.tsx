@@ -1,12 +1,16 @@
 import { json } from '@remix-run/node'
 import { Link, useLoaderData } from '@remix-run/react'
 import { getPosts } from '~/models/post.server'
+import { updatePostsTable } from '~/utils/markdownToDatabase.server'
 
 export const loader = async () => {
-	// Loader functions are the backend "API" for their component, and it's already wired up for you through useLoaderData.
-	// You could have something else here that gets your posts from some other location.
+	// read files to database
+	await updatePostsTable()
+	// retrieve post data from the database
+	const posts = await getPosts()
+
 	return json({
-		posts: await getPosts(),
+		posts: posts,
 	})
 }
 
