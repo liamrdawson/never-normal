@@ -6,7 +6,7 @@
 import * as fs from 'fs/promises'
 import type { Post } from '@prisma/client'
 import matter from 'gray-matter'
-import { createPost, getPost, updatePost } from '~/models/post.server'
+import { createPost, getPost, updatePost } from '../models/post.server'
 
 /**
  * Reads the content of a markdown file.
@@ -14,7 +14,7 @@ import { createPost, getPost, updatePost } from '~/models/post.server'
  * @param {string} filename - The name of the markdown file to read.
  * @returns {Promise<string>} The content of the markdown file.
  */
-async function readMarkdownFile(filename: string): Promise<string> {
+export async function readMarkdownFile(filename: string): Promise<string> {
 	try {
 		const content = await fs.readFile(`./app/posts/${filename}`, 'utf-8')
 		return content
@@ -30,7 +30,7 @@ async function readMarkdownFile(filename: string): Promise<string> {
  * @param {string} markdown - The markdown content to parse.
  * @returns {{ data: any, content: string }} An object containing the frontmatter data and content.
  */
-function parseMarkdown(markdown: string): {
+export function parseMarkdown(markdown: string): {
 	data: any
 	content: string
 } {
@@ -49,7 +49,7 @@ function parseMarkdown(markdown: string): {
  * @param {string} title - The title from which to create the slug.
  * @returns {string} The generated slug.
  */
-function createSlugFromTitle(title: string): string {
+export function createSlugFromTitle(title: string): string {
 	const slug = title.toLowerCase().split(' ').join('-')
 	return slug
 }
@@ -60,7 +60,7 @@ function createSlugFromTitle(title: string): string {
  * @param {string} filename - The name of the markdown file to process.
  * @returns {Promise<Post>} The post object in the database.
  */
-async function processPostFile(filename: string): Promise<Post> {
+export async function processPostFile(filename: string): Promise<Post> {
 	const markdownContent = await readMarkdownFile(filename)
 	const { data, content } = parseMarkdown(markdownContent)
 
