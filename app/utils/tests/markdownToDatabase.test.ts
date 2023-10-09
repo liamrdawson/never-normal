@@ -1,5 +1,6 @@
 import {
 	createSlugFromTitle,
+	parseMarkdown,
 	readMarkdownFile,
 } from '../markdownToDatabase.server'
 import fs from 'fs/promises'
@@ -28,6 +29,24 @@ describe('readMarkdwownFile', () => {
 
 		await expect(readMarkdownFile(fileName)).rejects.toEqual(mockError)
 		expect(fs.readFile).toHaveBeenCalledWith(`./app/posts/${fileName}`, 'utf-8')
+	})
+})
+
+describe('parseMarkdown', () => {
+	it('should parse markdown and return data and content', () => {
+		const markdown = '---\ntitle: Example\n---\nThis is some content.'
+		const result = parseMarkdown(markdown)
+		expect(result).toEqual({
+			data: {
+				title: 'Example',
+			},
+			content: 'This is some content.',
+		})
+	})
+	it('should throw an error when parsing fails', () => {
+		const invalidMarkdown = '---whatever\nabc: xyz\n---'
+
+		expect(() => parseMarkdown(invalidMarkdown)).toThrow()
 	})
 })
 
