@@ -1,11 +1,8 @@
-import {
-	createSlugFromTitle,
-	parseMarkdown,
-	readMarkdownFile,
-} from '../markdownToDatabase.server'
+import { readMarkdownFile, parseMarkdown } from '../markdown.server'
 import fs from 'fs/promises'
 
 jest.mock('fs/promises')
+
 describe('readMarkdwownFile', () => {
 	it('should read a markdown file and return its contents', async () => {
 		const mockContent = '---\ntitle: Example\n---\nThis is some content.'
@@ -47,13 +44,5 @@ describe('parseMarkdown', () => {
 		const invalidMarkdown = '---whatever\nabc: xyz\n---'
 
 		expect(() => parseMarkdown(invalidMarkdown)).toThrow()
-	})
-})
-
-describe('createSlugFromTitle', () => {
-	it('Should convert a post title string to slug friendly kebab case', () => {
-		const title = 'This is a Post Title'
-		const slug = createSlugFromTitle(title)
-		expect(slug).toBe('this-is-a-post-title')
 	})
 })
