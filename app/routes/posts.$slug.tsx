@@ -20,6 +20,7 @@ export default function PostSlug() {
 		<main>
 			<h1>Some Post: {post.title}</h1>
 			<div dangerouslySetInnerHTML={{ __html: html }} />
+			<div>Post likes: {post.likeCount}</div>
 		</main>
 	)
 }

@@ -26,9 +26,6 @@ export default function Posts() {
 					</li>
 				))}
 			</ul>
-			<div>
-				<Link to='admin'>Admin</Link>
-			</div>
 		</main>
 	)
 }
