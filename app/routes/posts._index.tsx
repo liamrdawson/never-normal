@@ -1,7 +1,7 @@
 import { json } from '@remix-run/node'
 import { Link, useLoaderData } from '@remix-run/react'
 import { getPosts } from '~/models/post.server'
-import { updatePostsTable } from '~/utils/markdownToDatabase.server'
+import { updatePostsTable } from '~/utils/database.server'
 
 export const loader = async () => {
 	// read files to database
