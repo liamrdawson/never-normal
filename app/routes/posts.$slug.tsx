@@ -1,9 +1,9 @@
-import type { LoaderFunctionArgs } from '@remix-run/node'
+import type { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
+import { Form, useLoaderData } from '@remix-run/react'
 import { marked } from 'marked'
 import invariant from 'tiny-invariant'
-import { getPost } from '~/models/post.server'
+import { getPost, likePost } from '~/models/post.server'
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
 	invariant(params.slug, 'params.slug is required')
@@ -11,6 +11,17 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 	invariant(post, `Post not found: ${params.slug}`)
 	const html = marked(post.markdown)
 	return json({ post, html })
+}
+
+export async function action({ request }: ActionFunctionArgs) {
+	let formData = await request.formData()
+
+	let values = Object.fromEntries(formData)
+	const postId = String(formData.get('post'))
+	const likeCount = Number(values.likeCount) + 1
+
+	await likePost({ id: postId, likeCount })
+	return values
 }
 
 export default function PostSlug() {
@@ -21,6 +32,11 @@ export default function PostSlug() {
 			<h1>Some Post: {post.title}</h1>
 			<div dangerouslySetInnerHTML={{ __html: html }} />
 			<div>Post likes: {post.likeCount}</div>
+			<Form method='post'>
+				<input type='hidden' name='likeCount' value={post.likeCount} />
+				<input type='hidden' name='post' value={post.id} />
+				<button type='submit'>Like</button>
+			</Form>
 		</main>
 	)
 }

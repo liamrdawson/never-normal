@@ -31,3 +31,14 @@ export async function updatePost(post: Pick<Post, 'id' | 'markdown'>) {
 		},
 	})
 }
+
+export async function likePost(post: Pick<Post, 'id' | 'likeCount'>) {
+	return prisma.post.update({
+		where: {
+			id: post.id,
+		},
+		data: {
+			likeCount: post.likeCount,
+		},
+	})
+}
