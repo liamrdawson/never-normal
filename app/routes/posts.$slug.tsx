@@ -1,9 +1,14 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/node'
+import type {
+	ActionFunctionArgs,
+	LinksFunction,
+	LoaderFunctionArgs,
+} from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { Form, useLoaderData } from '@remix-run/react'
 import { marked } from 'marked'
 import invariant from 'tiny-invariant'
 import { getPost, likePost } from '~/models/post.server'
+import { Button, links as ButtonLinks } from '~/components/atoms/button'
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
 	invariant(params.slug, 'params.slug is required')
@@ -24,6 +29,8 @@ export async function action({ request }: ActionFunctionArgs) {
 	return values
 }
 
+export const links: LinksFunction = () => [...ButtonLinks()]
+
 export default function PostSlug() {
 	const { post, html } = useLoaderData<typeof loader>()
 
@@ -35,7 +42,7 @@ export default function PostSlug() {
 			<Form method='post'>
 				<input type='hidden' name='likeCount' value={post.likeCount} />
 				<input type='hidden' name='post' value={post.id} />
-				<button type='submit'>Like</button>
+				<Button type='submit' content='submit' />
 			</Form>
 		</main>
 	)
