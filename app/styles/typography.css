@@ -1,0 +1,82 @@
+:root {
+	/** BASE VALUES  */
+	--rem-base: 62.5%;
+
+	--nn-size-font-xs: 0.75rem;
+	--nn-size-font-sm: 1rem;
+	--nn-size-font-md: 1.333rem;
+	--nn-size-font-lg: 1.777rem;
+	--nn-size-font-xl: 2.369rem;
+	--nn-size-font-xxl: 3.157rem;
+	--nn-size-font-3xl: 4.209rem;
+	--nn-size-font-4xl: 5.61rem;
+
+	--nn-size-line-height-xs: 1rem;
+	--nn-size-line-height-sm: 1rem;
+	--nn-size-line-height-md: 2rem;
+	--nn-size-line-height-lg: 2rem;
+	--nn-size-line-height-xl: 3rem;
+	--nn-size-line-height-xxl: 4rem;
+	--nn-size-line-height-3xl: 5rem;
+	--nn-size-line-height-4xl: 7rem;
+
+	--nn-font-weight-thin: 100;
+	--nn-font-weight-extra-light: 200;
+	--nn-font-weight-light: 300;
+	--nn-font-weight-normal: 400;
+	--nn-font-weight-medium: 500;
+	--nn-font-weight-semi-bold: 600;
+	--nn-font-weight-bold: 700;
+	--nn-font-weight-extra-bold: 800;
+	--nn-font-weight-black: 900;
+
+	/** BODY */
+	--nn-font-text-body-sm-mobile-font-size: var(--nn-size-font-xs);
+	--nn-font-text-body-sm-mobile-line-height: var(--nn-size-line-height-xs);
+	--nn-font-text-body-sm-desktop-font-size: var(--nn-size-font-sm);
+	--nn-font-text-body-sm-desktop-line-height: var(--nn-size-line-height-sm);
+
+	--nn-font-text-body-base-mobile-font-size: var(--nn-size-font-sm);
+	--nn-font-text-body-base-mobile-line-height: var(--nn-size-line-height-sm);
+	--nn-font-text-body-base-desktop-font-size: var(--nn-size-font-md);
+	--nn-font-text-body-base-desktop-line-height: var(--nn-size-line-height-md);
+
+	--nn-font-text-body-lg-mobile-font-size: var(--nn-size-font-md);
+	--nn-font-text-body-lg-mobile-line-height: var(--nn-size-line-height-md);
+	--nn-font-text-body-lg-desktop-font-size: var(--nn-size-font-lg);
+	--nn-font-text-body-lg-desktop-line-height: var(--nn-size-line-height-lg);
+
+	/** HEADING */
+
+	--nn-font-text-heading-xs-mobile-font-size: var(--nn-size-font-sm);
+	--nn-font-text-heading-xs-mobile-line-height: var(--nn-size-line-height-sm);
+	--nn-font-text-heading-xs-desktop-font-size: var(--nn-size-font-md);
+	--nn-font-text-heading-xs-desktop-line-height: var(--nn-size-line-height-md);
+
+	--nn-font-text-heading-sm-mobile-font-size: var(--nn-size-font-md);
+	--nn-font-text-heading-sm-mobile-line-height: var(--nn-size-line-height-md);
+	--nn-font-text-heading-sm-desktop-font-size: var(--nn-size-font-lg);
+	--nn-font-text-heading-sm-desktop-line-height: var(--nn-size-line-height-lg);
+
+	--nn-font-text-heading-md-mobile-font-size: var(--nn-size-font-lg);
+	--nn-font-text-heading-md-mobile-line-height: var(--nn-size-line-height-lg);
+	--nn-font-text-heading-md-desktop-font-size: var(--nn-size-font-xl);
+	--nn-font-text-heading-md-desktop-line-height: var(--nn-size-line-height-xl);
+
+	--nn-font-text-heading-lg-mobile-font-size: var(--nn-size-font-xl);
+	--nn-font-text-heading-lg-mobile-line-height: var(--nn-size-line-height-xl);
+	--nn-font-text-heading-lg-desktop-font-size: var(--nn-size-font-xxl);
+	--nn-font-text-heading-lg-desktop-line-height: var(--nn-size-line-height-xxl);
+
+	--nn-font-text-heading-xl-mobile-font-size: var(--nn-size-font-xxl);
+	--nn-font-text-heading-xl-mobile-line-height: var(--nn-size-line-height-xxl);
+	--nn-font-text-heading-xl-desktop-font-size: var(--nn-size-font-3xl);
+	--nn-font-text-heading-xl-desktop-line-heigh: var(--nn-size-line-height-3xl);
+
+	--nn-font-text-heading-xxl-mobile-font-size: var(--nn-size-font-3xl);
+	--nn-font-text-heading-xxl-mobile-line-height: var(--nn-size-line-height-3xl);
+	--nn-font-text-heading-xxl-desktop-font-size: var(--nn-size-font-4xl);
+	--nn-font-text-heading-xxl-desktop-line-height: var(
+		--nn-size-line-height-4xl
+	);
+}

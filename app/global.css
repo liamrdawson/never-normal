@@ -1,3 +1,33 @@
+html {
+	height: 100%;
+	margin: 0;
+	font-size: var(--rem-base);
+	color: var(--black);
+	background: var(--white);
+	& * {
+		box-sizing: border-box;
+		margin: 0;
+	}
+}
+
+a {
+	color: var(--black);
+	font-weight: var(--font-weight-anchor);
+}
+
+body {
+	font-size: var(--font-size-body);
+	line-height: var(--line-height-body);
+	font-weight: var(--font-weight-body);
+}
+
+p {
+	font-size: var(--font-size-large);
+	line-height: var(--line-height-large);
+}
+
 h1 {
-	color: blue;
+	font-size: var(--font-size-h1);
+	line-height: var(--line-height-h1);
+	font-weight: var(--font-weight-h1);
 }
