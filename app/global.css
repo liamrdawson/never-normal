@@ -9,7 +9,7 @@ html {
 }
 
 a {
-	color: var(--black);
+	color: var(--color-black);
 	font-weight: var(--font-weight-anchor);
 }
 
@@ -17,8 +17,8 @@ body {
 	font-size: var(--font-size-body);
 	line-height: var(--line-height-body);
 	font-weight: var(--font-weight-body);
-	color: var(--black);
-	background: var(--white);
+	color: var(--color-black);
+	background: var(--color-white);
 }
 
 p {
