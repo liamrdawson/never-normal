@@ -1,0 +1,11 @@
+.navbar-mobile {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: var(--spacing-nav) var(--grid-margin);
+}
+
+.logo {
+	font-size: var(--font-size-large);
+	line-height: var(--line-height-large);
+}

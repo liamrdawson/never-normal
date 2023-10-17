@@ -1,4 +1,4 @@
-import { LinksFunction } from '@remix-run/node'
+import type { LinksFunction } from '@remix-run/node'
 import styles from './button.css'
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }]

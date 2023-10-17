@@ -9,16 +9,17 @@ html {
 }
 
 a {
-	color: var(--color-black);
+	color: var(--color-text-base);
 	font-weight: var(--font-weight-anchor);
 }
 
 body {
+	font-family: var(--font-family-text);
 	font-size: var(--font-size-body);
 	line-height: var(--line-height-body);
 	font-weight: var(--font-weight-body);
-	color: var(--color-black);
-	background: var(--color-white);
+	color: var(--color-text-base);
+	background: var(--color-backgrond-light);
 }
 
 p {

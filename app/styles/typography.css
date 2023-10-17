@@ -30,6 +30,12 @@
 	--nn-font-weight-extra-bold: 800;
 	--nn-font-weight-black: 900;
 
+	--nn-font-family-system: system-ui, sans-serif;
+
+	--nn-font-family-text-primary: var(--nn-font-family-system);
+
+	--nn-font-family-heading-primary: var(--nn-font-family-system);
+
 	/** BODY */
 	--nn-font-text-body-sm-mobile-font-size: var(--nn-size-font-xs);
 	--nn-font-text-body-sm-mobile-line-height: var(--nn-size-line-height-xs);
@@ -41,10 +47,10 @@
 	--nn-font-text-body-base-desktop-font-size: var(--nn-size-font-md);
 	--nn-font-text-body-base-desktop-line-height: var(--nn-size-line-height-md);
 
-	--nn-font-text-body-lg-mobile-font-size: var(--nn-size-font-md);
-	--nn-font-text-body-lg-mobile-line-height: var(--nn-size-line-height-md);
-	--nn-font-text-body-lg-desktop-font-size: var(--nn-size-font-lg);
-	--nn-font-text-body-lg-desktop-line-height: var(--nn-size-line-height-lg);
+	--nn-font-text-body-lg-mobile-font-size: var(--nn-size-font-lg);
+	--nn-font-text-body-lg-mobile-line-height: var(--nn-size-line-height-lg);
+	--nn-font-text-body-lg-desktop-font-size: var(--nn-size-font-xl);
+	--nn-font-text-body-lg-desktop-line-height: var(--nn-size-line-height-xl);
 
 	/** HEADING */
 

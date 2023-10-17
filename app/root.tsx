@@ -10,12 +10,16 @@ import {
 } from '@remix-run/react'
 import theme from './styles/theme.css'
 import styles from './global.css'
+import { NavBar, links as NavBarLinks } from './components/molecules/nav/nav'
 
 export const links: LinksFunction = () => [
 	...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
+	...NavBarLinks(),
 	{ rel: 'stylesheet', href: theme },
 	{ rel: 'stylesheet', href: styles },
 ]
+
+console.log(...NavBarLinks())
 
 export default function App() {
 	return (
@@ -27,6 +31,7 @@ export default function App() {
 				<Links />
 			</head>
 			<body>
+				<NavBar />
 				<Outlet />
 				<ScrollRestoration />
 				<Scripts />

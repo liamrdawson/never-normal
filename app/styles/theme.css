@@ -3,6 +3,18 @@
 @import url('./typography.css');
 
 :root {
+	--color-dark: var(--nn-color-black);
+	--color-light: var(--nn-color-white);
+
+	--color-primary: var(--color-dark);
+	--color-secondary: var(--color-light);
+
+	--color-text-base: var(--color-primary);
+	--color-text-base-inverse: var(--color-secondary);
+
+	--color-background-dark: var(--color-dark);
+	--color-backgrond-light: var(--color-light);
+
 	--font-size-small: var(--nn-font-text-body-sm-mobile-font-size);
 	--line-height-small: var(--nn-font-text-body-sm-mobile-line-height);
 	--font-weight-small: var(--nn-font-weight-semi-bold);
@@ -33,6 +45,18 @@
 	--font-size-h6: var(--nn-font-text-heading-xs-mobile-font-size);
 	--line-height-h6: var(--nn-font-text-heading-xs-mobile-line-height);
 	--line-height-h6: var(--nn-font-weight-semi-bold);
+
+	--font-family-h1: var(--nn-font-family-heading-primary);
+	--font-family-h2: var(--nn-font-family-heading-primary);
+	--font-family-h3: var(--nn-font-family-heading-primary);
+	--font-family-h4: var(--nn-font-family-heading-primary);
+	--font-family-h5: var(--nn-font-family-heading-primary);
+	--font-family-h6: var(--nn-font-family-heading-primary);
+	--font-family-text: var(--nn-font-family-text-primary);
+
+	--grid-margin: var(--nn-size-spacing-200);
+
+	--spacing-nav: var(--nn-size-spacing-300);
 }
 
 @media only screen and (min-width: 480px) {
