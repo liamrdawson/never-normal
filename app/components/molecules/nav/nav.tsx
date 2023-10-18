@@ -10,7 +10,7 @@ function NavBar() {
 			<Heading className='logo' as='h1'>
 				Never Normal
 			</Heading>
-			<button>MENU</button>
+			<button className='menu-btn'>MENU</button>
 		</nav>
 	)
 }
