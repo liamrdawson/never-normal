@@ -14,6 +14,12 @@ export const loader = async () => {
 	})
 }
 
+export function headers() {
+	return {
+		'chache-control': 'max-age=3600',
+	}
+}
+
 export default function Posts() {
 	const { posts } = useLoaderData<typeof loader>()
 	return (
