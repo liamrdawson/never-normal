@@ -8,18 +8,18 @@ import {
 	Scripts,
 	ScrollRestoration,
 } from '@remix-run/react'
+import reset from './styles/reset.css'
 import theme from './styles/theme.css'
 import styles from './global.css'
 import { NavBar, links as NavBarLinks } from './components/molecules/nav/nav'
 
 export const links: LinksFunction = () => [
 	...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
-	...NavBarLinks(),
+	{ rel: 'stylesheet', href: reset },
 	{ rel: 'stylesheet', href: theme },
 	{ rel: 'stylesheet', href: styles },
+	...NavBarLinks(),
 ]
-
-console.log(...NavBarLinks())
 
 export default function App() {
 	return (
