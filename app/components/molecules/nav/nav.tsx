@@ -4,8 +4,12 @@ import { Heading } from '~/components/atoms/Heading/Heading'
 import styles from './nav.css'
 import { Link } from '@remix-run/react'
 import { useState } from 'react'
+import { links as HeaderStyles } from '../Header/Header'
 
-export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }]
+export const links: LinksFunction = () => [
+	{ rel: 'stylesheet', href: styles },
+	...HeaderStyles(),
+]
 
 const FACE = [
 	{ to: '/', name: 'Home' },

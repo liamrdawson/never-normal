@@ -55,6 +55,7 @@
 	--font-family-text: var(--nn-font-family-text-primary);
 
 	--grid-margin: var(--nn-size-spacing-200);
+	--grid-gutter: var(--nn-size-spacing-100);
 
 	--spacing-nav: var(--nn-size-spacing-300);
 }
@@ -79,5 +80,11 @@
 		--line-height-h5: var(--nn-font-text-heading-sm-desktop-line-height);
 		--font-size-h6: var(--nn-font-text-heading-xs-desktop-font-size);
 		--line-height-h6: var(--nn-font-text-heading-xs-desktop-line-height);
+	}
+	@media only screen and (min-width: 768px) {
+		:root {
+			--grid-margin: var(--nn-size-spacing-800);
+			--grid-gutter: var(--nn-size-spacing-200);
+		}
 	}
 }
