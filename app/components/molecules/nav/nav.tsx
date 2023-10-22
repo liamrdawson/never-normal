@@ -47,6 +47,7 @@ function NavMenu({
 			className='nav-menu-links'
 			animate={isOpen ? 'open' : 'closed'}
 			variants={variants}
+			initial={'closed'}
 		>
 			<div className='mobile-menu-close-button-container'>
 				<button className='menu-btn close' onClick={toggleMenu}>
