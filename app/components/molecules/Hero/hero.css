@@ -1,0 +1,19 @@
+.hero {
+  padding: 0 var(--grid-margin);
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--grid-gutter);
+}
+
+.headerCopy {
+  grid-column-start: 1;
+  grid-column-end: 13;
+  margin-top: var(--nn-size-spacing-800);
+  color: var(--color-text-base);
+  @media (min-width: 768px) {
+    grid-column-end: 12;
+  }
+  @media (min-width: 1024px) {
+    grid-column-end: 11;
+  }
+}
