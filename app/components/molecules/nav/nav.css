@@ -45,7 +45,10 @@
 	flex-direction: column;
 	& button {
 		align-self: flex-end;
-		height: var(--nn-size-spacing-300);
+		height: var(--nn-size-spacing-200);
+		@media (min-width: 769px) {
+			height: var(--nn-size-spacing-300);
+		}
 	}
 	& ul {
 		margin-top: 50px;
