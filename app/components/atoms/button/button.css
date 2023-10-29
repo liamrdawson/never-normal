@@ -1,15 +1,11 @@
-.border-red {
-	border: solid red 3px;
-}
-
 .base {
 	font-family: var(--font-family-text);
 	font-size: var(--font-size-body);
-	line-height: var(--line-height-large);
+	line-height: var(--line-height-body);
 	font-weight: var(--font-weight-button);
 	text-transform: uppercase;
 	width: fit-content;
-	padding: 0;
+	padding: var(--button-padding);
 	background: none;
 	color: var(--color-primary);
 }
@@ -29,8 +25,7 @@
 .variant-outlined-inverse {
 	border: solid 1px var(--color-primary);
 	color: var(--color-text-base);
-	border-radius: 29px;
-	padding: 10px 20px;
+	border-radius: var(--button-border-radius);
 }
 
 .variant-outlined-inverse {
@@ -38,6 +33,14 @@
 	background: var(--color-primary);
 }
 
-.variant-contained {
+.variant-contained,
+.variant-contained-inverse {
 	color: green;
+}
+
+.variant-contained-inverse {
+	color: var(--color-text-base);
+	background: var(--color-backgrond-light);
+	border-radius: var(--button-border-radius);
+	border: none;
 }

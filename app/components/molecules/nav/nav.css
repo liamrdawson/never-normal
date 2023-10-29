@@ -1,46 +1,68 @@
 .desktop-nav {
-  display: none;
-  @media (min-width: 768px) {
-    display: block;
-  }
+	display: none;
+	& ul {
+		display: flex;
+		flex-direction: row;
+		text-decoration: none;
+		list-style: none;
+		align-items: center;
+		& li a {
+			text-decoration: none;
+			color: var(--color-text-base-inverse);
+		}
+		& li:not(first-child) {
+			margin-left: 50px;
+		}
+		& li:last-child a {
+			color: var(--color-text-base);
+			background: var(--color-backgrond-light);
+			border-radius: var(--button-border-radius);
+			padding: var(--button-padding);
+			border: none;
+		}
+	}
+	@media (min-width: 1000px) {
+		display: block;
+	}
 }
 
 .mobile-nav {
-  display: block;
-  @media (min-width: 768px) {
-    display: none;
-  }
+	display: block;
+	@media (min-width: 1000px) {
+		display: none;
+	}
 }
 
 .mobile-nav-menu {
-  position: absolute;
-  background: var(--color-backgrond-light);
-  padding: var(--spacing-nav) var(--grid-margin);
-  top: 0;
-  right: 0;
-  height: 100vh;
-  width: 260px;
-  display: flex;
-  flex-direction: column;
-  & button {
-    align-self: flex-end;
-  }
-  & ul {
-    margin-top: 50px;
-    margin-left: var(--nn-size-spacing-100);
-    display: flex;
-    flex-direction: column;
-    list-style: none;
-    padding: 0;
-    font-size: var(--font-size-large);
-    line-height: var(--line-height-large);
-    font-weight: var(--font-weight-anchor);
-    text-decoration: none;
-    & li a {
-      text-decoration: none;
-    }
-    & li:not(:first-child) {
-      margin-top: 30px;
-    }
-  }
+	position: absolute;
+	background: var(--color-backgrond-light);
+	padding: var(--spacing-nav) var(--grid-margin);
+	top: 0;
+	right: 0;
+	height: 100vh;
+	width: 260px;
+	display: flex;
+	flex-direction: column;
+	& button {
+		align-self: flex-end;
+		height: var(--nn-size-spacing-300);
+	}
+	& ul {
+		margin-top: 50px;
+		margin-left: var(--nn-size-spacing-100);
+		display: flex;
+		flex-direction: column;
+		list-style: none;
+		padding: 0;
+		font-size: var(--font-size-large);
+		line-height: var(--line-height-large);
+		font-weight: var(--font-weight-anchor);
+		text-decoration: none;
+		& li a {
+			text-decoration: none;
+		}
+		& li:not(:first-child) {
+			margin-top: 30px;
+		}
+	}
 }
