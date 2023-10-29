@@ -1,43 +1,43 @@
 .border-red {
-  border: solid red 3px;
+	border: solid red 3px;
 }
 
 .base {
-  font-family: var(--font-family-text);
-  font-size: var(--font-size-large);
-  line-height: var(--line-height-large);
-  font-weight: var(--font-weight-button);
-  text-transform: uppercase;
-  width: fit-content;
-  padding: 0;
-  background: none;
-  color: var(--color-primary);
+	font-family: var(--font-family-text);
+	font-size: var(--font-size-body);
+	line-height: var(--line-height-large);
+	font-weight: var(--font-weight-button);
+	text-transform: uppercase;
+	width: fit-content;
+	padding: 0;
+	background: none;
+	color: var(--color-primary);
 }
 
 .variant-text,
 .variant-text-inverse {
-  border: none;
-  background: none;
-  color: var(--color-text-base);
+	border: none;
+	background: none;
+	color: var(--color-text-base);
 }
 
 .variant-text-inverse {
-  color: var(--color-text-inverse);
+	color: var(--color-text-inverse);
 }
 
 .variant-outlined,
 .variant-outlined-inverse {
-  border: solid 1px var(--color-primary);
-  color: var(--color-text-base);
-  border-radius: 29px;
-  padding: 10px 20px;
+	border: solid 1px var(--color-primary);
+	color: var(--color-text-base);
+	border-radius: 29px;
+	padding: 10px 20px;
 }
 
 .variant-outlined-inverse {
-  color: var(--color-text-base-inverse);
-  background: var(--color-primary);
+	color: var(--color-text-base-inverse);
+	background: var(--color-primary);
 }
 
 .variant-contained {
-  color: green;
+	color: green;
 }
