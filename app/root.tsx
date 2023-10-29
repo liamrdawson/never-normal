@@ -12,13 +12,17 @@ import reset from "./styles/reset.css";
 import theme from "./styles/theme.css";
 import styles from "./global.css";
 import { NavBar, links as NavBarLinks } from "./components/molecules/nav/nav";
-import { Header } from "./components/organisms/Header/Header";
+import {
+  Header,
+  links as headerLinks,
+} from "./components/organisms/Header/Header";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
   { rel: "stylesheet", href: reset },
   { rel: "stylesheet", href: theme },
   { rel: "stylesheet", href: styles },
+  ...headerLinks(),
   ...NavBarLinks(),
 ];
 

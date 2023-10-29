@@ -1,24 +1,26 @@
 import { motion } from "framer-motion";
 import type { LinksFunction } from "@remix-run/node";
-import { Heading } from "~/components/atoms/Heading/Heading";
 import styles from "./nav.css";
 import { Link } from "@remix-run/react";
 import { useState } from "react";
 import { links as HeaderStyles } from "../Hero/hero";
+import { Button, links as ButtonStyles } from "~/components/atoms/button";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
   ...HeaderStyles(),
+  ...ButtonStyles(),
 ];
 
-const FACE = [
-  { to: "/", name: "Home" },
+const NAV_LINKS = [
   { to: "/about", name: "About" },
   { to: "/work", name: "Work" },
   { to: "/news", name: "News" },
   { to: "/thinking", name: "Thinking" },
   { to: "/contact", name: "Contact" },
 ];
+
+const MOBILE_NAV_LINKS = [{ to: "/", name: "Home" }, ...NAV_LINKS];
 
 const variants = {
   open: {
@@ -39,52 +41,68 @@ const variants = {
   },
 };
 
-function NavMenu({
-  isOpen,
-  toggleMenu,
-}: {
-  isOpen: boolean;
-  toggleMenu: () => void;
-}): JSX.Element {
-  return (
-    <motion.div
-      className="nav-menu-links"
-      animate={isOpen ? "open" : "closed"}
-      variants={variants}
-      initial={"closed"}
-    >
-      <div className="mobile-menu-close-button-container">
-        <button className="menu-btn close" onClick={toggleMenu}>
-          CLOSE
-        </button>
-      </div>
-      <ul>
-        {FACE.map((link) => (
-          <li key={link.to}>
-            <Link to={link.to}>{link.name}</Link>
-          </li>
-        ))}
-      </ul>
-    </motion.div>
-  );
-}
-
-function NavBar() {
+function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <nav className="navbar-mobile">
-      <Heading className="logo" as="h1">
-        Never Normal
-      </Heading>
-      <button className="menu-btn" onClick={toggleMenu}>
+    <nav className="mobile-nav">
+      <Button
+        variant="text"
+        isInverse={true}
+        type="button"
+        onClick={toggleMenu}
+      >
         MENU
-      </button>
-      <NavMenu isOpen={isOpen} toggleMenu={toggleMenu} />
+      </Button>
+      <motion.div
+        className="mobile-nav-menu"
+        animate={isOpen ? "open" : "closed"}
+        variants={variants}
+        initial={"closed"}
+      >
+        <Button
+          variant="text"
+          isInverse={false}
+          type="button"
+          onClick={toggleMenu}
+        >
+          CLOSE
+        </Button>
+        <ul>
+          {NAV_LINKS.map((link) => (
+            <li key={link.to}>
+              <Link to={link.to}>{link.name}</Link>
+            </li>
+          ))}
+        </ul>
+      </motion.div>
     </nav>
+  );
+}
+
+function DesktopNav() {
+  return (
+    <nav className="desktop-nav">
+      <ul>
+        {MOBILE_NAV_LINKS.map((link) => (
+          <li key={link.to}>
+            <Link to={link.to}>{link.name}</Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+function NavBar() {
+  return (
+    <>
+      <DesktopNav />
+      <MobileNav />
+    </>
   );
 }
 
