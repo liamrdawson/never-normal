@@ -35,7 +35,10 @@
 
 .variant-contained,
 .variant-contained-inverse {
-	color: green;
+	color: var(--color-text-base-inverse);
+	background: var(--color-background-dark);
+	border-radius: var(--button-border-radius);
+	border: none;
 }
 
 .variant-contained-inverse {

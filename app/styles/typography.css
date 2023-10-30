@@ -42,8 +42,8 @@
 	--nn-font-text-body-sm-desktop-font-size: var(--nn-size-font-sm);
 	--nn-font-text-body-sm-desktop-line-height: var(--nn-size-line-height-sm);
 
-	--nn-font-text-body-base-mobile-font-size: var(--nn-size-font-sm);
-	--nn-font-text-body-base-mobile-line-height: var(--nn-size-line-height-sm);
+	--nn-font-text-body-base-mobile-font-size: var(--nn-size-font-md);
+	--nn-font-text-body-base-mobile-line-height: var(--nn-size-line-height-md);
 	--nn-font-text-body-base-desktop-font-size: var(--nn-size-font-md);
 	--nn-font-text-body-base-desktop-line-height: var(--nn-size-line-height-md);
 

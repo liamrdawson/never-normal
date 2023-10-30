@@ -3,7 +3,7 @@ import type { LinksFunction } from '@remix-run/node'
 import styles from './nav.css'
 import { Link } from '@remix-run/react'
 import { useState } from 'react'
-import { links as HeaderStyles } from '../Hero/hero'
+import { links as HeaderStyles } from '../HeroSection/HeroSection'
 import { Button, links as ButtonStyles } from '~/components/atoms/button'
 
 export const links: LinksFunction = () => [
@@ -89,23 +89,11 @@ function DesktopNav() {
 		<nav className='desktop-nav'>
 			<ul>
 				{NAV_LINKS.map((link) => {
-					// if (link.to === '/contact') {
-					// 	return (
-					// 		<li key={link.to}>
-					// 			<Link to={link.to}>
-					// 				<Button type='button' variant='contained' isInverse={true}>
-					// 					{link.name}
-					// 				</Button>
-					// 			</Link>
-					// 		</li>
-					// 	)
-					// } else {
 					return (
 						<li key={link.to}>
 							<Link to={link.to}>{link.name}</Link>
 						</li>
 					)
-					// 	}
 				})}
 			</ul>
 		</nav>

@@ -16,8 +16,8 @@
 	--color-backgrond-light: var(--color-light);
 
 	--font-weight-button: var(--nn-font-weight-semi-bold);
-	--button-padding: var(--nn-size-spacing-050) var(--nn-size-spacing-200);
-	--button-border-radius: var(--nn-size-spacig-150);
+	--button-padding: var(--nn-size-spacing-100) var(--nn-size-spacing-200);
+	--button-border-radius: var(--nn-size-spacing-300);
 
 	--font-size-small: var(--nn-font-text-body-sm-mobile-font-size);
 	--line-height-small: var(--nn-font-text-body-sm-mobile-line-height);
