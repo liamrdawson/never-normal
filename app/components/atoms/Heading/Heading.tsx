@@ -14,7 +14,9 @@ interface NewHeadingProps {
 function Heading({ className, children, as = 'h1', isHero }: NewHeadingProps) {
 	const CustomTag = as as keyof JSX.IntrinsicElements
 	return (
-		<CustomTag className={`${className} ${isHero ? 'hero-copy' : ''}`}>
+		<CustomTag
+			className={`${className ? className : ''} ${isHero ? 'hero-copy' : ''}`}
+		>
 			{children}
 		</CustomTag>
 	)

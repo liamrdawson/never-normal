@@ -30,6 +30,7 @@
 	--font-weight-large: var(--nn-font-weight-semi-bold);
 
 	--font-weight-anchor: var(--nn-font-weight-bold);
+	--font-weight-callout: var(--nn-font-weight-semi-bold);
 
 	--font-size-h1: var(--nn-font-text-heading-xxl-mobile-font-size);
 	--line-height-h1: var(--nn-font-text-heading-xxl-mobile-line-height);
@@ -58,8 +59,14 @@
 	--font-family-h6: var(--nn-font-family-heading-primary);
 	--font-family-text: var(--nn-font-family-text-primary);
 
+	--section-heading: var(--nn-size-spacing-300);
+
 	--grid-margin: var(--nn-size-spacing-200);
 	--grid-gutter: var(--nn-size-spacing-100);
+
+	--grid-gap: var(--nn-size-spacing-200);
+
+	--layout-margin: var(--nn-size-spacing-800);
 
 	--spacing-nav: var(--nn-size-spacing-300);
 }
@@ -89,6 +96,7 @@
 		:root {
 			--grid-margin: var(--nn-size-spacing-800);
 			--grid-gutter: var(--nn-size-spacing-200);
+			--layout-margin: var(--nn-size-spacing-1300);
 		}
 	}
 }

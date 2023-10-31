@@ -1,40 +1,40 @@
 html {
-  height: 100%;
-  margin: 0;
-  font-size: var(--rem-base);
-  & * {
-    box-sizing: border-box;
-    margin: 0;
-  }
+	height: 100%;
+	margin: 0;
+	font-size: var(--rem-base);
+	& * {
+		box-sizing: border-box;
+		margin: 0;
+	}
 }
 
 html,
 body {
-  overflow-x: hidden;
-  height: 100vh;
+	overflow-x: hidden;
+	height: 100vh;
 }
 
 a {
-  color: var(--color-text-base);
-  font-weight: var(--font-weight-anchor);
+	color: var(--color-text-base);
+	font-weight: var(--font-weight-anchor);
 }
 
 body {
-  font-family: var(--font-family-text);
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
-  font-weight: var(--font-weight-body);
-  color: var(--color-text-base);
-  background: var(--color-backgrond-light);
+	font-family: var(--font-family-text);
+	font-size: var(--font-size-body);
+	line-height: var(--line-height-body);
+	font-weight: var(--font-weight-body);
+	color: var(--color-text-base);
+	background: var(--color-backgrond-light);
 }
 
 p {
-  font-size: var(--font-size-large);
-  line-height: var(--line-height-large);
+	font-size: var(--font-size-body);
+	line-height: var(--line-height-body);
 }
 
 h1 {
-  font-size: var(--font-size-h1);
-  line-height: var(--line-height-h1);
-  font-weight: var(--font-weight-h1);
+	font-size: var(--font-size-h1);
+	line-height: var(--line-height-h1);
+	font-weight: var(--font-weight-h1);
 }

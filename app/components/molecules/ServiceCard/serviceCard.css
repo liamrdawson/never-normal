@@ -1,0 +1,30 @@
+.services-section {
+	padding: 0 var(--grid-margin);
+	margin-top: var(--layout-margin);
+	& h1,
+	h2 {
+		margin-top: var(--layout-margin);
+	}
+}
+
+.services-callout {
+	font-size: var(--font-size-large);
+	font-weight: var(--font-weight-callout);
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	row-gap: var(--size-spacing-xxs);
+	& > .image-container {
+		width: 100%;
+		background: var(--color-background-dark);
+		aspect-ratio: 16 / 9;
+	}
+}
+
+.grid {
+	margin-top: var(--section-heading);
+	display: grid;
+	grid-row-gap: var(--grid-gap);
+}

@@ -7,7 +7,7 @@
 .hero-section {
 	padding: 0 var(--grid-margin) 50px;
 	& button {
-		margin-top: var(--nn-size-spacing-800);
+		margin-top: var(--layout-margin);
 	}
 }
 
@@ -15,7 +15,7 @@
 	display: inline-block;
 	grid-column-start: 1;
 	grid-column-end: 13;
-	margin-top: var(--nn-size-spacing-800);
+	margin-top: var(--layout-margin);
 	color: var(--color-text-base);
 	text-transform: uppercase;
 	@media (min-width: 768px) {

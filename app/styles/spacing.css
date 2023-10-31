@@ -14,4 +14,12 @@
 	--nn-size-spacing-1100: 11rem;
 	--nn-size-spacing-1200: 12rem;
 	--nn-size-spacing-1300: 13rem;
+
+	--size-spacing-xxs: var(--nn-size-spacing-050);
+	--size-spacing-xs: var(--nn-size-spacing-100);
+	--size-spacing-sm: var(--nn-size-spacing-050);
+	--size-spacing-md: var(--nn-size-spacing-200);
+	--size-spacing-lg: var(--nn-size-spacing-300);
+	--size-spacing-xl: var(--nn-size-spacing-500);
+	--size-spacing-xxl: var(--nn-size-spacing-800);
 }

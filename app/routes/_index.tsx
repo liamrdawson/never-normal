@@ -1,6 +1,12 @@
-import type { MetaFunction } from '@remix-run/node'
+import type { LinksFunction, MetaFunction } from '@remix-run/node'
 import { Link } from '@remix-run/react'
 import { HeroSection } from '~/components/molecules/HeroSection/HeroSection'
+import {
+	ServicesSection,
+	links as ServicesSectionLinks,
+} from '~/components/molecules/ServiceCard/ServiceCard'
+
+export const links: LinksFunction = () => [...ServicesSectionLinks()]
 
 export const meta: MetaFunction = () => {
 	return [
@@ -13,6 +19,7 @@ export default function Index() {
 	return (
 		<main>
 			<HeroSection />
+			<ServicesSection />
 			<div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.8' }}>
 				<ul>
 					<li>
