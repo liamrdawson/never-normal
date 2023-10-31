@@ -35,8 +35,8 @@
 	--font-size-h1: var(--nn-font-text-heading-xxl-mobile-font-size);
 	--line-height-h1: var(--nn-font-text-heading-xxl-mobile-line-height);
 	--font-weight-h1: var(--nn-font-weight-bold);
-	--font-size-h2: var(--nn-font-text-heading-xl-mobile-font-size);
-	--line-height-h2: var(--nn-font-text-heading-xl-mobile-line-height);
+	--font-size-h2: var(--nn-font-text-heading-lg-mobile-font-size);
+	--line-height-h2: var(--nn-font-text-heading-lg-mobile-line-height);
 	--font-weight-h2: var(--nn-font-weight-bold);
 	--font-size-h3: var(--nn-font-text-heading-lg-mobile-font-size);
 	--line-height-h3: var(--nn-font-text-heading-lg-mobile-line-height);
