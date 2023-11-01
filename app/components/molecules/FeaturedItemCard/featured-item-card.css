@@ -1,0 +1,10 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--size-spacing-xxs);
+  & > .image-container {
+    width: 100%;
+    background: var(--color-background-dark);
+    aspect-ratio: 16 / 9;
+  }
+}

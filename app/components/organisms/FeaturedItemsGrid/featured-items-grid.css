@@ -1,0 +1,12 @@
+.grid {
+  margin-top: var(--section-heading);
+  display: grid;
+  grid-row-gap: var(--grid-gap);
+  @media (min-width: 480px) {
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--grid-gap);
+  }
+  @media (min-width: 960px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
