@@ -3,11 +3,21 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function seed() {
+	const authors = [
+		{
+			id: 100,
+			firstName: 'Liam',
+			lastName: 'Dawson',
+			email: 'Liam.Dawson@NeverNormalCommerce.com',
+		},
+	]
+
 	const posts = [
 		{
-			id: '123',
+			id: 1,
 			likeCount: 0,
 			slug: 'my-first-blog-post',
+			authorId: 100,
 			title: 'My First Post',
 			markdown: `
   # This is my first post
@@ -16,9 +26,10 @@ async function seed() {
       `.trim(),
 		},
 		{
-			id: '456',
+			id: 2,
 			likeCount: 3,
 			slug: '90s-mixtapes',
+			authorId: 100,
 			title: 'A Mixtape I Made Just For You',
 			markdown: `
   # 90s Mixtape
@@ -44,10 +55,18 @@ async function seed() {
 		},
 	]
 
+	for (const author of authors) {
+		await prisma.author.upsert({
+			where: { id: author.id },
+			update: {},
+			create: author,
+		})
+	}
+
 	for (const post of posts) {
 		await prisma.post.upsert({
 			where: { slug: post.slug },
-			update: post,
+			update: {},
 			create: post,
 		})
 	}

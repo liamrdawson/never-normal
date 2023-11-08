@@ -1,13 +1,14 @@
 ---
 title: Second Post
-author: Liam Dawson
+firstName: Liam
+secondName: Dawson
+email: liam.dawson@nevernormalcommerce.com
 description: A random description
 featured: true
 hidden: false
 tags:
   - Cool
   - Tech
-id: 4243189e-27a8-4cad-b4d2-635f5be6a1ca
 slug: second-post
 ---
 

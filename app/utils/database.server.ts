@@ -1,7 +1,12 @@
 import * as fs from 'fs/promises'
 import type { Post } from '@prisma/client'
 import { parseMarkdown, readMarkdownFile } from './markdown.server'
-import { createPost, getPost, updatePost } from '~/models/post.server'
+import {
+	createPost,
+	getOrCreateAuthor,
+	getPost,
+	updatePost,
+} from '~/models/post.server'
 import { createSlugFromTitle } from './utils'
 
 /**
@@ -17,6 +22,8 @@ export async function processPostFile(filename: string): Promise<Post> {
 		data.slug = createSlugFromTitle(data.title)
 	}
 
+	const author = await getOrCreateAuthor(data)
+
 	const currentPost = await getPost(data.slug)
 
 	const { slug, title } = data
@@ -25,6 +32,7 @@ export async function processPostFile(filename: string): Promise<Post> {
 			slug,
 			title,
 			markdown: content,
+			authorId: author.id,
 		})
 		return newPost
 	}

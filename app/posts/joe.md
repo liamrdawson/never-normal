@@ -1,8 +1,8 @@
 ---
-title: Third Post
-firstName: Liam
-lastName: Dawson
-email: liam.dawson@nevernormalcommerce.com
+title: Joe Bloggs
+firstName: Joe
+lastName: Bloggs
+email: joe@bloggs.com
 description: A random description
 featured: true
 hidden: false

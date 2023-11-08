@@ -1,7 +1,9 @@
 ---
 title: Fourth Post
-author: Liam Dawson
+firstName: Liam
+lastName: Dawson
 description: A random description
+email: liam.dawson@nevernormalcommerce.com
 featured: true
 hidden: false
 tags:
