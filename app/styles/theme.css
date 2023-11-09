@@ -1,102 +1,102 @@
-@import url('./colour.css');
-@import url('./spacing.css');
-@import url('./typography.css');
+@import url("./colour.css");
+@import url("./spacing.css");
+@import url("./typography.css");
 
 :root {
-	--color-dark: var(--nn-color-black);
-	--color-light: var(--nn-color-white);
+  --color-dark: var(--nn-color-black);
+  --color-light: var(--nn-color-white);
 
-	--color-primary: var(--color-dark);
-	--color-secondary: var(--color-light);
+  --color-primary: var(--color-dark);
+  --color-secondary: var(--color-light);
 
-	--color-text-base: var(--color-primary);
-	--color-text-base-inverse: var(--color-secondary);
+  --color-text-base: var(--color-primary);
+  --color-text-base-inverse: var(--color-secondary);
 
-	--color-background-dark: var(--color-dark);
-	--color-backgrond-light: var(--color-light);
+  --color-background-dark: var(--color-dark);
+  --color-backgrond-light: var(--color-light);
 
-	--font-weight-button: var(--nn-font-weight-semi-bold);
-	--button-padding: var(--nn-size-spacing-100) var(--nn-size-spacing-200);
-	--button-border-radius: var(--nn-size-spacing-300);
+  --font-weight-button: var(--nn-font-weight-semi-bold);
+  --button-padding: var(--nn-size-spacing-100) var(--nn-size-spacing-200);
+  --button-border-radius: var(--nn-size-spacing-300);
 
-	--font-size-small: var(--nn-font-text-body-sm-mobile-font-size);
-	--line-height-small: var(--nn-font-text-body-sm-mobile-line-height);
-	--font-weight-small: var(--nn-font-weight-semi-bold);
-	--font-size-body: var(--nn-font-text-body-base-mobile-font-size);
-	--line-height-body: var(--nn-font-text-body-base-mobile-line-height);
-	--font-weight-body: var(--nn-font-weight-normal);
-	--font-size-large: var(--nn-font-text-body-lg-mobile-font-size);
-	--line-height-large: var(--nn-font-text-body-lg-mobile-line-height);
-	--font-weight-large: var(--nn-font-weight-semi-bold);
+  --font-size-small: var(--nn-font-text-body-sm-mobile-font-size);
+  --line-height-small: var(--nn-font-text-body-sm-mobile-line-height);
+  --font-weight-small: var(--nn-font-weight-semi-bold);
+  --font-size-body: var(--nn-font-text-body-base-mobile-font-size);
+  --line-height-body: var(--nn-font-text-body-base-mobile-line-height);
+  --font-weight-body: var(--nn-font-weight-normal);
+  --font-size-large: var(--nn-font-text-body-lg-mobile-font-size);
+  --line-height-large: var(--nn-font-text-body-lg-mobile-line-height);
+  --font-weight-large: var(--nn-font-weight-semi-bold);
 
-	--font-weight-anchor: var(--nn-font-weight-bold);
-	--font-weight-callout: var(--nn-font-weight-semi-bold);
+  --font-weight-anchor: var(--nn-font-weight-bold);
+  --font-weight-callout: var(--nn-font-weight-semi-bold);
 
-	--font-size-h1: var(--nn-font-text-heading-xxl-mobile-font-size);
-	--line-height-h1: var(--nn-font-text-heading-xxl-mobile-line-height);
-	--font-weight-h1: var(--nn-font-weight-bold);
-	--font-size-h2: var(--nn-font-text-heading-lg-mobile-font-size);
-	--line-height-h2: var(--nn-font-text-heading-lg-mobile-line-height);
-	--font-weight-h2: var(--nn-font-weight-bold);
-	--font-size-h3: var(--nn-font-text-heading-lg-mobile-font-size);
-	--line-height-h3: var(--nn-font-text-heading-lg-mobile-line-height);
-	--font-weight-h3: var(--nn-font-weight-bold);
-	--font-size-h4: var(--nn-font-text-heading-md-mobile-font-size);
-	--line-height-h4: var(--nn-font-text-heading-md-mobile-line-height);
-	--font-weight-h4: var(--nn-font-weight-semi-bold);
-	--font-size-h5: var(--nn-font-text-heading-sm-mobile-font-size);
-	--line-height-h5: var(--nn-font-text-heading-sm-mobile-line-height);
-	--font-weight-h5: var(--nn-font-weight-semi-bold);
-	--font-size-h6: var(--nn-font-text-heading-xs-mobile-font-size);
-	--line-height-h6: var(--nn-font-text-heading-xs-mobile-line-height);
-	--line-height-h6: var(--nn-font-weight-semi-bold);
+  --font-size-h1: var(--nn-font-text-heading-xxl-mobile-font-size);
+  --line-height-h1: var(--nn-font-text-heading-xxl-mobile-line-height);
+  --font-weight-h1: var(--nn-font-weight-bold);
+  --font-size-h2: var(--nn-font-text-heading-xl-mobile-font-size);
+  --line-height-h2: var(--nn-font-text-heading-xl-mobile-line-height);
+  --font-weight-h2: var(--nn-font-weight-bold);
+  --font-size-h3: var(--nn-font-text-heading-lg-mobile-font-size);
+  --line-height-h3: var(--nn-font-text-heading-lg-mobile-line-height);
+  --font-weight-h3: var(--nn-font-weight-bold);
+  --font-size-h4: var(--nn-font-text-heading-md-mobile-font-size);
+  --line-height-h4: var(--nn-font-text-heading-md-mobile-line-height);
+  --font-weight-h4: var(--nn-font-weight-semi-bold);
+  --font-size-h5: var(--nn-font-text-heading-sm-mobile-font-size);
+  --line-height-h5: var(--nn-font-text-heading-sm-mobile-line-height);
+  --font-weight-h5: var(--nn-font-weight-semi-bold);
+  --font-size-h6: var(--nn-font-text-heading-xs-mobile-font-size);
+  --line-height-h6: var(--nn-font-text-heading-xs-mobile-line-height);
+  --line-height-h6: var(--nn-font-weight-semi-bold);
 
-	--font-family-h1: var(--nn-font-family-heading-primary);
-	--font-family-h2: var(--nn-font-family-heading-primary);
-	--font-family-h3: var(--nn-font-family-heading-primary);
-	--font-family-h4: var(--nn-font-family-heading-primary);
-	--font-family-h5: var(--nn-font-family-heading-primary);
-	--font-family-h6: var(--nn-font-family-heading-primary);
-	--font-family-text: var(--nn-font-family-text-primary);
+  --font-family-h1: var(--nn-font-family-heading-primary);
+  --font-family-h2: var(--nn-font-family-heading-primary);
+  --font-family-h3: var(--nn-font-family-heading-primary);
+  --font-family-h4: var(--nn-font-family-heading-primary);
+  --font-family-h5: var(--nn-font-family-heading-primary);
+  --font-family-h6: var(--nn-font-family-heading-primary);
+  --font-family-text: var(--nn-font-family-text-primary);
 
-	--section-heading: var(--nn-size-spacing-300);
+  --section-heading: var(--nn-size-spacing-300);
 
-	--grid-margin: var(--nn-size-spacing-200);
-	--grid-gutter: var(--nn-size-spacing-100);
+  --grid-margin: var(--nn-size-spacing-200);
+  --grid-gutter: var(--nn-size-spacing-100);
 
-	--grid-gap: var(--nn-size-spacing-200);
+  --grid-gap: var(--nn-size-spacing-200);
 
-	--layout-margin: var(--nn-size-spacing-800);
+  --layout-margin: var(--nn-size-spacing-800);
 
-	--spacing-nav: var(--nn-size-spacing-300);
+  --spacing-nav: var(--nn-size-spacing-300);
 }
 
 @media only screen and (min-width: 480px) {
-	:root {
-		--font-size-small: var(--nn-font-text-body-sm-desktop-font-size);
-		--line-height-small: var(--nn-font-text-body-sm-desktop-line-height);
-		--font-size-body: var(--nn-font-text-body-base-desktop-font-size);
-		--line-height-body: var(--nn-font-text-body-base-desktop-line-height);
-		--font-size-large: var(--nn-font-text-body-lg-desktop-font-size);
-		--line-height-large: var(--nn-font-text-body-lg-desktop-line-height);
-		--font-size-h1: var(--nn-font-text-heading-xxl-desktop-font-size);
-		--line-height-h1: var(--nn-font-text-heading-xxl-desktop-line-height);
-		--font-size-h2: var(--nn-font-text-heading-xl-desktop-font-size);
-		--line-height-h2: var(--nn-font-text-heading-xxl-desktop-line-height);
-		--font-size-h3: var(--nn-font-text-heading-lg-desktop-font-size);
-		--line-height-h3: var(--nn-font-text-heading-lg-desktop-line-height);
-		--font-size-h4: var(--nn-font-text-heading-md-desktop-font-size);
-		--line-height-h4: var(--nn-font-text-heading-md-desktop-line-height);
-		--font-size-h5: var(--nn-font-text-heading-sm-desktop-font-size);
-		--line-height-h5: var(--nn-font-text-heading-sm-desktop-line-height);
-		--font-size-h6: var(--nn-font-text-heading-xs-desktop-font-size);
-		--line-height-h6: var(--nn-font-text-heading-xs-desktop-line-height);
-	}
-	@media only screen and (min-width: 768px) {
-		:root {
-			--grid-margin: var(--nn-size-spacing-800);
-			--grid-gutter: var(--nn-size-spacing-200);
-			--layout-margin: var(--nn-size-spacing-1300);
-		}
-	}
+  :root {
+    --font-size-small: var(--nn-font-text-body-sm-desktop-font-size);
+    --line-height-small: var(--nn-font-text-body-sm-desktop-line-height);
+    --font-size-body: var(--nn-font-text-body-base-desktop-font-size);
+    --line-height-body: var(--nn-font-text-body-base-desktop-line-height);
+    --font-size-large: var(--nn-font-text-body-lg-desktop-font-size);
+    --line-height-large: var(--nn-font-text-body-lg-desktop-line-height);
+    --font-size-h1: var(--nn-font-text-heading-xxl-desktop-font-size);
+    --line-height-h1: var(--nn-font-text-heading-xxl-desktop-line-height);
+    --font-size-h2: var(--nn-font-text-heading-xl-desktop-font-size);
+    --line-height-h2: var(--nn-font-text-heading-xxl-desktop-line-height);
+    --font-size-h3: var(--nn-font-text-heading-lg-desktop-font-size);
+    --line-height-h3: var(--nn-font-text-heading-lg-desktop-line-height);
+    --font-size-h4: var(--nn-font-text-heading-md-desktop-font-size);
+    --line-height-h4: var(--nn-font-text-heading-md-desktop-line-height);
+    --font-size-h5: var(--nn-font-text-heading-sm-desktop-font-size);
+    --line-height-h5: var(--nn-font-text-heading-sm-desktop-line-height);
+    --font-size-h6: var(--nn-font-text-heading-xs-desktop-font-size);
+    --line-height-h6: var(--nn-font-text-heading-xs-desktop-line-height);
+  }
+  @media only screen and (min-width: 768px) {
+    :root {
+      --grid-margin: var(--nn-size-spacing-800);
+      --grid-gutter: var(--nn-size-spacing-200);
+      --layout-margin: var(--nn-size-spacing-1300);
+    }
+  }
 }
