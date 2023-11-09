@@ -1,25 +1,25 @@
 :root {
-	--nn-size-spacing-050: 0.5rem;
-	--nn-size-spacing-100: 1rem;
-	--nn-size-spacig-150: 1.5rem;
-	--nn-size-spacing-200: 2rem;
-	--nn-size-spacing-300: 3rem;
-	--nn-size-spacing-400: 4rem;
-	--nn-size-spacig-500: 5rem;
-	--nn-size-spacing-600: 6rem;
-	--nn-size-spacing-700: 7rem;
-	--nn-size-spacing-800: 8rem;
-	--nn-size-spacing-900: 9rem;
-	--nn-size-spacing-1000: 10rem;
-	--nn-size-spacing-1100: 11rem;
-	--nn-size-spacing-1200: 12rem;
-	--nn-size-spacing-1300: 13rem;
+  --nn-size-spacing-050: 0.5rem;
+  --nn-size-spacing-100: 1rem;
+  --nn-size-spacig-150: 1.5rem;
+  --nn-size-spacing-200: 2rem;
+  --nn-size-spacing-300: 3rem;
+  --nn-size-spacing-400: 4rem;
+  --nn-size-spacing-500: 5rem;
+  --nn-size-spacing-600: 6rem;
+  --nn-size-spacing-700: 7rem;
+  --nn-size-spacing-800: 8rem;
+  --nn-size-spacing-900: 9rem;
+  --nn-size-spacing-1000: 10rem;
+  --nn-size-spacing-1100: 11rem;
+  --nn-size-spacing-1200: 12rem;
+  --nn-size-spacing-1300: 13rem;
 
-	--size-spacing-xxs: var(--nn-size-spacing-050);
-	--size-spacing-xs: var(--nn-size-spacing-100);
-	--size-spacing-sm: var(--nn-size-spacing-050);
-	--size-spacing-md: var(--nn-size-spacing-200);
-	--size-spacing-lg: var(--nn-size-spacing-300);
-	--size-spacing-xl: var(--nn-size-spacing-500);
-	--size-spacing-xxl: var(--nn-size-spacing-800);
+  --size-spacing-xxs: var(--nn-size-spacing-050);
+  --size-spacing-xs: var(--nn-size-spacing-100);
+  --size-spacing-sm: var(--nn-size-spacing-050);
+  --size-spacing-md: var(--nn-size-spacing-200);
+  --size-spacing-lg: var(--nn-size-spacing-300);
+  --size-spacing-xl: var(--nn-size-spacing-500);
+  --size-spacing-xxl: var(--nn-size-spacing-800);
 }
