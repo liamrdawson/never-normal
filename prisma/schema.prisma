@@ -31,3 +31,9 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Lead {
+  id        Int @id @unique @default(autoincrement())
+  firstName String
+  email     String
+}

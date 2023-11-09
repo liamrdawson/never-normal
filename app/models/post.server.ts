@@ -1,4 +1,4 @@
-import type { Author, Post } from '@prisma/client'
+import type { Author, Post, Lead } from '@prisma/client'
 import { prisma } from '~/db.server'
 
 export async function getPosts() {
@@ -7,6 +7,41 @@ export async function getPosts() {
 
 export async function getPost(slug: string) {
 	return prisma.post.findUnique({ where: { slug } })
+}
+
+export async function getLead(lead: Omit<Lead, 'id'>): Promise<Lead | null> {
+	const { firstName, email } = lead
+	console.log('finding leads...')
+	const newLead = await prisma.lead.findFirst({
+		where: {
+			AND: [{ firstName: { equals: firstName } }, { email: { equals: email } }],
+		},
+	})
+	console.log('lead found:', newLead)
+	return newLead
+}
+
+export async function createLead(lead: Omit<Lead, 'id'>): Promise<Lead> {
+	const { firstName, email } = lead
+	console.log('creating new lead...')
+	return await prisma.lead.create({
+		data: {
+			firstName,
+			email,
+		},
+	})
+}
+
+export async function getOrCreateLead(lead: Omit<Lead, 'id'>): Promise<Lead> {
+	console.log(lead)
+
+	const { firstName, email } = lead
+	const existingLead = await getLead({ firstName, email })
+	if (existingLead) {
+		return existingLead
+	}
+	const newLead = await createLead({ firstName, email })
+	return newLead
 }
 
 export async function getOrCreateAuthor(authorData: {
@@ -40,7 +75,7 @@ export async function createPost(
 		...post,
 		likeCount: 0,
 	}
-	return prisma.post.create({ data: newPost })
+	return await prisma.post.create({ data: newPost })
 }
 
 export async function updatePost(post: Pick<Post, 'id' | 'markdown'>) {
