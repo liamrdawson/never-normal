@@ -35,5 +35,5 @@ model Post {
 model Lead {
   id        Int @id @unique @default(autoincrement())
   firstName String
-  email     String
+  email     String @unique
 }

@@ -13,7 +13,7 @@ import {
 	EmailForm,
 	links as EmailFormLinks,
 } from '~/components/organisms/EmailForm/EmailForm'
-import { getOrCreateLead } from '~/models/post.server'
+import { getOrCreateLead } from '~/models/customer.server'
 
 export async function action({ request }: ActionFunctionArgs) {
 	const formData = await request.formData()
