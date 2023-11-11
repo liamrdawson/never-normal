@@ -22,14 +22,12 @@ export async function processPostFile(filename: string): Promise<Post> {
 		data.slug = createSlugFromTitle(data.title)
 	}
 
-	console.log('TESTING ...')
 	const author = await getOrCreateAuthor(data)
 
 	const currentPost = await getPost(data.slug)
 
 	const { slug, title } = data
 	if (!currentPost) {
-		console.log('Creating post...')
 		const newPost = await createPost({
 			slug,
 			title,
