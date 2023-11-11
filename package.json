@@ -7,7 +7,7 @@
 		"dev": "remix dev --manual",
 		"start": "remix-serve ./build/index.js",
 		"typecheck": "tsc",
-		"test": "jest --silent"
+		"test": "jest --silent "
 	},
 	"dependencies": {
 		"@prisma/client": "^5.4.1",
