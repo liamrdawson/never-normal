@@ -57,4 +57,29 @@ describe('createLead', () => {
 
 		expect(createLead(newLead)).resolves.toEqual(resolvedLead)
 	})
+	it('should throw an error if an invalid email address is provided', async () => {
+		const invalidLead = {
+			firstName: 'Balin',
+			email: 'Son of Fundin',
+		}
+
+		expect(createLead(invalidLead)).rejects.toThrowError(
+			'Invalid input: Son of Fundin is not a valid email.'
+		)
+	})
+	it('should throw an error if lead already exists', async () => {
+		const existingLead = {
+			firstName: 'Oin',
+			email: 'oin@thorinandcompany.com',
+		}
+
+		prismaMock.lead.create.mockRejectedValue({
+			code: 'P2002',
+			message: 'Unique constraint failed.',
+		})
+
+		expect(createLead(existingLead)).rejects.toThrowError(
+			'Failed to perform database operation: prisma.lead.create(). Unique constraint failed.'
+		)
+	})
 })
