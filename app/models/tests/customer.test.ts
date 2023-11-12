@@ -1,8 +1,4 @@
-/**
- * Uses the singleton client instance to call the mock implementation.
- */
-
-import { createLead, getLead } from '../customer.server'
+import { createLead, getLead, getOrCreateLead } from '../customer.server'
 import { prismaMock } from 'prisma/singleton'
 
 describe('getLead', () => {
@@ -81,5 +77,48 @@ describe('createLead', () => {
 		expect(createLead(existingLead)).rejects.toThrowError(
 			'Failed to perform database operation: prisma.lead.create(). Unique constraint failed.'
 		)
+	})
+})
+
+describe('getOrCreateLead', () => {
+	it('should return an existing lead if a match is found with the given name and email', async () => {
+		const existingLead = {
+			firstName: 'Gloin',
+			email: 'gloin@thorinandcompany.com',
+		}
+
+		const foundLead = {
+			id: 1,
+			...existingLead,
+		}
+
+		prismaMock.lead.findFirst.mockResolvedValue(foundLead)
+		const result = getOrCreateLead(existingLead)
+		expect(result).resolves.toEqual(foundLead)
+		expect(prismaMock.lead.findFirst).toHaveBeenCalledWith({
+			where: {
+				AND: [
+					{ firstName: { equals: 'Gloin' } },
+					{ email: { equals: 'gloin@thorinandcompany.com' } },
+				],
+			},
+		})
+		expect(prismaMock.lead.create).not.toHaveBeenCalled()
+	})
+	it('should return a newly created lead if no match is found with the fiven name and email', async () => {
+		const newLead = {
+			firstName: 'Fili',
+			email: 'fili@thorinandcompany.com',
+		}
+		const newlyCreatedLead = {
+			id: 1,
+			...newLead,
+		}
+
+		prismaMock.lead.findFirst.mockResolvedValue(null)
+		prismaMock.lead.create.mockResolvedValue(newlyCreatedLead)
+
+		const result = getOrCreateLead(newLead)
+		expect(result).resolves.toEqual(newlyCreatedLead)
 	})
 })

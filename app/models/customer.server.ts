@@ -72,8 +72,6 @@ export async function createLead(lead: Omit<Lead, 'id'>): Promise<Lead> {
 }
 
 export async function getOrCreateLead(lead: Omit<Lead, 'id'>): Promise<Lead> {
-	validateLeadInput(lead)
-
 	const { firstName, email } = lead
 	const existingLead = await getLead({ firstName, email })
 	if (existingLead) {
