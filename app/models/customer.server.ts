@@ -1,6 +1,6 @@
 import type { Lead } from '@prisma/client'
 import { Prisma } from '@prisma/client'
-import { prisma } from '~/db.server'
+import prisma from '~/db.server'
 import { validateLeadInput } from '~/utils/utils'
 
 type HandlePrismaError = {
@@ -8,7 +8,7 @@ type HandlePrismaError = {
 	operation: 'create' | 'find' | 'findFirst'
 }
 
-async function handlePrismaError({
+export async function handlePrismaError({
 	operation,
 	error,
 }: HandlePrismaError): Promise<never> {
