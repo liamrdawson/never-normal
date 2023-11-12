@@ -1,12 +1,19 @@
 import type { Author, Post } from '@prisma/client'
 import prisma from '~/db.server'
 
-export async function getPosts() {
+export async function getPosts(): Promise<Post[] | null> {
 	return prisma.post.findMany()
 }
 
-export async function getPost(slug: string) {
-	return prisma.post.findUnique({ where: { slug } })
+export async function getPost(slug: string): Promise<Post | null> {
+	try {
+		const foundPost = await prisma.post.findUnique({ where: { slug } })
+		console.log(`Retrieved post for slug: ${slug}`)
+		return foundPost
+	} catch (error) {
+		console.error(`Error in getPost for slug "${slug}":`, error)
+		throw new Error(`Failed to retrieve post for slug "${slug}".`)
+	}
 }
 
 export async function getOrCreateAuthor(authorData: {
