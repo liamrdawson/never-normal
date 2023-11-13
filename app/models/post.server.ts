@@ -1,5 +1,6 @@
 import type { Author, Post } from '@prisma/client'
 import prisma from '~/db.server'
+import { handlePrismaError } from '~/utils/handlePrismaError'
 
 export async function getPosts(): Promise<Post[] | null> {
 	return prisma.post.findMany()
@@ -11,8 +12,23 @@ export async function getPost(slug: string): Promise<Post | null> {
 		console.log(`Retrieved post for slug: ${slug}`)
 		return foundPost
 	} catch (error) {
-		console.error(`Error in getPost for slug "${slug}":`, error)
-		throw new Error(`Failed to retrieve post for slug "${slug}".`)
+		handlePrismaError({ operation: 'post.findUnique', error })
+	}
+}
+
+export async function getAuthor(email: string) {
+	try {
+		const author = await prisma.author.findUnique({
+			where: { email },
+		})
+		if (!author) {
+			console.log(`No author found with email: ${email}`)
+			return author
+		}
+		console.log(`Author found with email: ${email}`)
+		return author
+	} catch (error) {
+		handlePrismaError({ operation: 'author.findUnique', error })
 	}
 }
 
@@ -21,53 +37,68 @@ export async function getOrCreateAuthor(authorData: {
 	lastName: string
 	email: string
 }): Promise<Author> {
-	const existingAuthor = await prisma.author.findUnique({
-		where: { email: authorData.email },
-	})
+	try {
+		const existingAuthor = await prisma.author.findUnique({
+			where: { email: authorData.email },
+		})
 
-	if (existingAuthor) {
-		return existingAuthor
+		if (existingAuthor) {
+			return existingAuthor
+		}
+
+		const newAuthor = await prisma.author.create({
+			data: {
+				firstName: authorData.firstName,
+				lastName: authorData.lastName,
+				email: authorData.email,
+			},
+		})
+		return newAuthor
+	} catch (error) {
+		handlePrismaError({ operation: 'author.create', error })
 	}
-
-	const newAuthor = await prisma.author.create({
-		data: {
-			firstName: authorData.firstName,
-			lastName: authorData.lastName,
-			email: authorData.email,
-		},
-	})
-
-	return newAuthor
 }
 
 export async function createPost(
 	post: Omit<Post, 'id' | 'likeCount' | 'createdAt' | 'updatedAt'>
-) {
-	const newPost = {
-		...post,
-		likeCount: 0,
+): Promise<Post> {
+	try {
+		const newPost = {
+			...post,
+			likeCount: 0,
+		}
+		return await prisma.post.create({ data: newPost })
+	} catch (error) {
+		handlePrismaError({ operation: 'post.create', error })
 	}
-	return await prisma.post.create({ data: newPost })
 }
 
 export async function updatePost(post: Pick<Post, 'id' | 'markdown'>) {
-	return prisma.post.update({
-		where: {
-			id: post.id,
-		},
-		data: {
-			markdown: post.markdown,
-		},
-	})
+	try {
+		return prisma.post.update({
+			where: {
+				id: post.id,
+			},
+			data: {
+				markdown: post.markdown,
+			},
+		})
+	} catch (error) {
+		handlePrismaError({ operation: 'post.update', error })
+	}
 }
 
 export async function likePost(post: Pick<Post, 'id' | 'likeCount'>) {
-	return prisma.post.update({
-		where: {
-			id: post.id,
-		},
-		data: {
-			likeCount: post.likeCount,
-		},
-	})
+	try {
+		return prisma.post.update({
+			where: {
+				id: post.id,
+			},
+			data: {
+				likeCount: post.likeCount,
+			},
+		})
+	} catch (error) {
+		handlePrismaError({ operation: 'post.update', error })
+	}
 }

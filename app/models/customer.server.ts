@@ -1,32 +1,7 @@
 import type { Lead } from '@prisma/client'
-import { Prisma } from '@prisma/client'
 import prisma from '~/db.server'
+import { handlePrismaError } from '~/utils/handlePrismaError'
 import { validateLeadInput } from '~/utils/utils'
-
-type HandlePrismaError = {
-	error: any
-	operation: 'create' | 'find' | 'findFirst'
-}
-
-export async function handlePrismaError({
-	operation,
-	error,
-}: HandlePrismaError): Promise<never> {
-	console.error(`Prisma error: ${operation}`, error)
-
-	if (
-		error instanceof Prisma.PrismaClientKnownRequestError &&
-		error.code === 'P2002'
-	) {
-		console.error(
-			'Unique constraint violation: A new lead cannot be created with this email.'
-		)
-	}
-
-	throw new Error(
-		`Failed to perform database operation: prisma.lead.${operation}(). ${error.message}`
-	)
-}
 
 export async function getLead(lead: Omit<Lead, 'id'>): Promise<Lead | null> {
 	validateLeadInput(lead)
@@ -44,7 +19,7 @@ export async function getLead(lead: Omit<Lead, 'id'>): Promise<Lead | null> {
 		console.log('lead found:', foundLead)
 		return foundLead
 	} catch (error) {
-		await handlePrismaError({ operation: 'findFirst', error })
+		await handlePrismaError({ operation: 'lead.findFirst', error })
 		return error as never
 	}
 }
@@ -66,7 +41,7 @@ export async function createLead(lead: Omit<Lead, 'id'>): Promise<Lead> {
 		console.log(`New lead created: ${newLead}`)
 		return newLead
 	} catch (error) {
-		await handlePrismaError({ operation: 'create', error })
+		await handlePrismaError({ operation: 'lead.create', error })
 		return error as never
 	}
 }
