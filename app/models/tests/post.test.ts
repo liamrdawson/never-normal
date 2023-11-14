@@ -1,5 +1,5 @@
 import { prismaMock } from 'prisma/singleton'
-import { getAuthor, getPost, getPosts } from '../post.server'
+import { getAuthor, getOrCreateAuthor, getPost, getPosts } from '../post.server'
 
 describe('getPosts', () => {
 	it('should return an array of posts', () => {
@@ -103,6 +103,85 @@ describe('getAuthor', () => {
 		)
 	})
 	it('should throw when an error occurs', async () => {
+		prismaMock.author.findUnique.mockRejectedValueOnce({
+			code: 'P1017',
+			message: 'Server has closed the connection.',
+		})
+		await expect(getAuthor('throw.error@example.com')).rejects.toThrowError()
+	})
+})
+
+describe('getOrCreateAuthor', () => {
+	it('should return the same author if an author with the given email already exists', async () => {
+		const newDate = new Date()
+		const existingAuthor = {
+			id: 42,
+			firstName: 'Douglas',
+			lastName: 'Adams',
+			email: 'douglas.adams@hitchhikersguide.com',
+			twitter: null,
+			createdAt: newDate,
+			updatedAt: newDate,
+		}
+
+		prismaMock.author.findUnique.mockResolvedValueOnce(existingAuthor)
+		await expect(
+			getOrCreateAuthor({
+				firstName: existingAuthor.firstName,
+				lastName: existingAuthor.lastName,
+				email: existingAuthor.email,
+			})
+		).resolves.toEqual(existingAuthor)
+	})
+	it('should return an updated author if the author exist but the name is different', async () => {
+		const newDate = new Date()
+		const existingAuthor = {
+			id: 4,
+			firstName: 'John',
+			lastName: 'Tolkien',
+			email: 'john.tolkien@middleearth.com',
+			twitter: null,
+			createdAt: newDate,
+			updatedAt: newDate,
+		}
+		const updatedAuthorData = {
+			firstName: 'JRR',
+			lastName: 'Tolkien',
+			email: 'john.tolkien@middleearth.com',
+		}
+		prismaMock.author.findUnique.mockResolvedValueOnce(existingAuthor)
+		prismaMock.author.update.mockResolvedValueOnce({
+			...existingAuthor,
+			firstName: updatedAuthorData.firstName,
+		})
+		await expect(getOrCreateAuthor(updatedAuthorData)).resolves.toEqual({
+			...existingAuthor,
+			firstName: 'JRR',
+		})
+	})
+
+	it('should create and return a new author if an author with the given email does not already exist', async () => {
+		const newDate = new Date()
+		const newAuthor = {
+			id: 5,
+			firstName: 'Bilbo',
+			lastName: 'Baggins',
+			email: 'bilbo.baggins@theshire.com',
+			twitter: null,
+			createdAt: newDate,
+			updatedAt: newDate,
+		}
+		prismaMock.author.findUnique.mockResolvedValueOnce(null)
+		prismaMock.author.create.mockResolvedValueOnce(newAuthor)
+		await expect(
+			getOrCreateAuthor({
+				firstName: newAuthor.firstName,
+				lastName: newAuthor.lastName,
+				email: newAuthor.email,
+			})
+		).resolves.toEqual(newAuthor)
+	})
+	it('should throw if an error occurs', async () => {
 		prismaMock.author.findUnique.mockRejectedValueOnce({
 			code: 'P1017',
 			message: 'Server has closed the connection.',

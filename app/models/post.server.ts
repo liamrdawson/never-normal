@@ -38,19 +38,32 @@ export async function getOrCreateAuthor(authorData: {
 	email: string
 }): Promise<Author> {
 	try {
-		const existingAuthor = await prisma.author.findUnique({
+		let existingAuthor = await prisma.author.findUnique({
 			where: { email: authorData.email },
 		})
 
 		if (existingAuthor) {
+			// Check if details are the same before updating to avoid unnecessary db writes.
+			const detailsChanged =
+				existingAuthor.firstName !== authorData.firstName ||
+				existingAuthor.lastName !== authorData.lastName
+
+			if (detailsChanged) {
+				// Update the existing author's information if their name happens to be different.
+				existingAuthor = await prisma.author.update({
+					where: { email: authorData.email },
+					data: {
+						firstName: authorData.firstName,
+						lastName: authorData.lastName,
+					},
+				})
+			}
 			return existingAuthor
 		}
-
-		const newAuthor = await prisma.author.create({
+		// Create a new author if they don't exist on the database.
+		const newAuthor = prisma.author.create({
 			data: {
-				firstName: authorData.firstName,
-				lastName: authorData.lastName,
-				email: authorData.email,
+				...authorData,
 			},
 		})
 		return newAuthor
