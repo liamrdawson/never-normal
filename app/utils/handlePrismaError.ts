@@ -27,12 +27,7 @@ export function handlePrismaError({
 	operation,
 	error,
 }: HandlePrismaErrorOptions): never {
-	console.log('HELLOO')
-
 	console.error(`Prisma error in ${operation}:`, error)
-
-	console.log(operation)
-	console.log(error)
 
 	if (
 		error instanceof Prisma.PrismaClientKnownRequestError &&
