@@ -5,6 +5,7 @@ import {
 	getOrCreateAuthor,
 	getPost,
 	getPosts,
+	likePost,
 	updatePost,
 } from '../post.server'
 import { Post } from '@prisma/client'
@@ -268,7 +269,48 @@ describe('updatePost', () => {
 			code: 'P1008',
 			message: 'Operations timed out after {time}',
 		})
-		await expect(updatePost(newPostMarkdown)).rejects.toThrow(
+		expect(updatePost(newPostMarkdown)).rejects.toThrow(
+			'Failed to perform database operation: prisma.post.update(). Operations timed out after {time}.'
+		)
+	})
+})
+
+describe('likePost', () => {
+	const newDate = new Date()
+	const newPostLikes = {
+		id: 101,
+		likeCount: 12,
+	}
+	const updatedPost = {
+		id: 101,
+		authorId: 101,
+		slug: 'this-is-a-slug',
+		title: 'This is a Title',
+		markdown: '# New Markdown Data',
+		likeCount: 12,
+		createdAt: newDate,
+		updatedAt: newDate,
+	}
+
+	it('should update a post with new markdown', async () => {
+		prismaMock.post.update.mockResolvedValue({
+			id: 101,
+			authorId: 101,
+			slug: 'this-is-a-slug',
+			title: 'This is a Title',
+			markdown: '# New Markdown Data',
+			likeCount: 12,
+			createdAt: newDate,
+			updatedAt: newDate,
+		})
+		expect(likePost(newPostLikes)).resolves.toEqual(updatedPost)
+	})
+	it('should throw if an error occurs', async () => {
+		prismaMock.post.update.mockRejectedValue({
+			code: 'P1008',
+			message: 'Operations timed out after {time}',
+		})
+		expect(likePost(newPostLikes)).rejects.toThrow(
 			'Failed to perform database operation: prisma.post.update(). Operations timed out after {time}.'
 		)
 	})

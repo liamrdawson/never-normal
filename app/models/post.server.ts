@@ -103,7 +103,7 @@ export async function updatePost(post: Pick<Post, 'id' | 'markdown'>) {
 
 export async function likePost(post: Pick<Post, 'id' | 'likeCount'>) {
 	try {
-		return prisma.post.update({
+		return await prisma.post.update({
 			where: {
 				id: post.id,
 			},
