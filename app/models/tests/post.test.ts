@@ -1,5 +1,12 @@
 import { prismaMock } from 'prisma/singleton'
-import { getAuthor, getOrCreateAuthor, getPost, getPosts } from '../post.server'
+import {
+	createPost,
+	getAuthor,
+	getOrCreateAuthor,
+	getPost,
+	getPosts,
+} from '../post.server'
+import { Post } from '@prisma/client'
 
 describe('getPosts', () => {
 	it('should return an array of posts', () => {
@@ -187,5 +194,40 @@ describe('getOrCreateAuthor', () => {
 			message: 'Server has closed the connection.',
 		})
 		await expect(getAuthor('throw.error@example.com')).rejects.toThrowError()
+	})
+})
+
+describe('createPost', () => {
+	const newDate = new Date()
+	const post: Post = {
+		id: 1,
+		authorId: 101,
+		slug: 'this-is-a-slug',
+		title: 'This is a Title',
+		markdown: '# Markdown Content',
+		likeCount: 0,
+		createdAt: newDate,
+		updatedAt: newDate,
+	}
+	it('should create a new post', async () => {
+		prismaMock.post.create.mockResolvedValueOnce(post)
+		await expect(
+			createPost({
+				slug: 'this-is-a-slug',
+				title: 'This is a Title',
+				markdown: '# Markdown Content',
+				authorId: 101,
+			})
+		).resolves.toEqual(post)
+	})
+	it('should throw if an error occurs', async () => {
+		prismaMock.post.create.mockRejectedValue({
+			code: 'P2002',
+			message: 'Unique constraint failed',
+		})
+
+		await expect(createPost(post)).rejects.toThrow(
+			'Failed to perform database operation: prisma.post.create(). Unique constraint failed.'
+		)
 	})
 })

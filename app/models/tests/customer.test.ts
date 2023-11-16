@@ -51,7 +51,7 @@ describe('createLead', () => {
 
 		prismaMock.lead.create.mockResolvedValue(resolvedLead)
 
-		expect(createLead(newLead)).resolves.toEqual(resolvedLead)
+		await expect(createLead(newLead)).resolves.toEqual(resolvedLead)
 	})
 	it('should throw an error if an invalid email address is provided', async () => {
 		const invalidLead = {
@@ -59,7 +59,7 @@ describe('createLead', () => {
 			email: 'Son of Fundin',
 		}
 
-		expect(createLead(invalidLead)).rejects.toThrowError(
+		await expect(createLead(invalidLead)).rejects.toThrowError(
 			'Invalid input: Son of Fundin is not a valid email.'
 		)
 	})
@@ -74,7 +74,7 @@ describe('createLead', () => {
 			message: 'Unique constraint failed.',
 		})
 
-		expect(createLead(existingLead)).rejects.toThrowError(
+		await expect(createLead(existingLead)).rejects.toThrowError(
 			'Failed to perform database operation: prisma.lead.create(). Unique constraint failed.'
 		)
 	})

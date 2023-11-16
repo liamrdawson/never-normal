@@ -73,7 +73,7 @@ export async function getOrCreateAuthor(authorData: {
 }
 
 export async function createPost(
-	post: Omit<Post, 'id' | 'likeCount' | 'createdAt' | 'updatedAt'>
+	post: Pick<Post, 'authorId' | 'slug' | 'title' | 'markdown'>
 ): Promise<Post> {
 	try {
 		const newPost = {

@@ -39,6 +39,6 @@ export function handlePrismaError({
 	}
 
 	throw new Error(
-		`Failed to perform database operation: prisma.${operation}(). ${error.message}`
+		`Failed to perform database operation: prisma.${operation}(). ${error.message}.`
 	)
 }
