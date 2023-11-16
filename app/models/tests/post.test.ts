@@ -5,6 +5,7 @@ import {
 	getOrCreateAuthor,
 	getPost,
 	getPosts,
+	updatePost,
 } from '../post.server'
 import { Post } from '@prisma/client'
 
@@ -228,6 +229,50 @@ describe('createPost', () => {
 
 		await expect(createPost(post)).rejects.toThrow(
 			'Failed to perform database operation: prisma.post.create(). Unique constraint failed.'
+		)
+	})
+})
+
+describe('updatePost', () => {
+	const newDate = new Date()
+	it('should update a post with new markdown', async () => {
+		const newPostMarkdown = {
+			id: 101,
+			markdown: '# New Mardown Data',
+		}
+		const updatedPost = {
+			id: 101,
+			authorId: 101,
+			slug: 'this-is-a-slug',
+			title: 'This is a Title',
+			markdown: '# New Markdown Data',
+			likeCount: 0,
+			createdAt: newDate,
+			updatedAt: newDate,
+		}
+		prismaMock.post.update.mockResolvedValue({
+			id: 101,
+			authorId: 101,
+			slug: 'this-is-a-slug',
+			title: 'This is a Title',
+			markdown: '# New Markdown Data',
+			likeCount: 0,
+			createdAt: newDate,
+			updatedAt: newDate,
+		})
+		expect(updatePost(newPostMarkdown)).resolves.toEqual(updatedPost)
+	})
+	it('should throw if an error occurs', async () => {
+		const newPostMarkdown = {
+			id: 101,
+			markdown: '# New Mardown Data',
+		}
+		prismaMock.post.update.mockRejectedValue({
+			code: 'P1008',
+			message: 'Operations timed out after {time}',
+		})
+		await expect(updatePost(newPostMarkdown)).rejects.toThrow(
+			'Failed to perform database operation: prisma.post.update(). Operations timed out after {time}.'
 		)
 	})
 })

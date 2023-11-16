@@ -88,7 +88,7 @@ export async function createPost(
 
 export async function updatePost(post: Pick<Post, 'id' | 'markdown'>) {
 	try {
-		return prisma.post.update({
+		return await prisma.post.update({
 			where: {
 				id: post.id,
 			},
