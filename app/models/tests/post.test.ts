@@ -235,21 +235,22 @@ describe('createPost', () => {
 
 describe('updatePost', () => {
 	const newDate = new Date()
+	const newPostMarkdown = {
+		id: 101,
+		markdown: '# New Mardown Data',
+	}
+	const updatedPost = {
+		id: 101,
+		authorId: 101,
+		slug: 'this-is-a-slug',
+		title: 'This is a Title',
+		markdown: '# New Markdown Data',
+		likeCount: 0,
+		createdAt: newDate,
+		updatedAt: newDate,
+	}
+
 	it('should update a post with new markdown', async () => {
-		const newPostMarkdown = {
-			id: 101,
-			markdown: '# New Mardown Data',
-		}
-		const updatedPost = {
-			id: 101,
-			authorId: 101,
-			slug: 'this-is-a-slug',
-			title: 'This is a Title',
-			markdown: '# New Markdown Data',
-			likeCount: 0,
-			createdAt: newDate,
-			updatedAt: newDate,
-		}
 		prismaMock.post.update.mockResolvedValue({
 			id: 101,
 			authorId: 101,
@@ -263,10 +264,6 @@ describe('updatePost', () => {
 		expect(updatePost(newPostMarkdown)).resolves.toEqual(updatedPost)
 	})
 	it('should throw if an error occurs', async () => {
-		const newPostMarkdown = {
-			id: 101,
-			markdown: '# New Mardown Data',
-		}
 		prismaMock.post.update.mockRejectedValue({
 			code: 'P1008',
 			message: 'Operations timed out after {time}',
