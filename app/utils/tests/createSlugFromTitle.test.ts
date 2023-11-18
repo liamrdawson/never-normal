@@ -1,4 +1,5 @@
-import { createSlugFromTitle } from '../utils'
+import { createSlugFromTitle } from '../createSlugFromTitle'
+
 describe('createSlugFromTitle', () => {
 	it('Should convert a post title string to slug friendly kebab case', () => {
 		const title = 'This is a Post Title'

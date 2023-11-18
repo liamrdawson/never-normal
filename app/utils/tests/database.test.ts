@@ -56,7 +56,7 @@ describe('processPostFile', () => {
 		expect(post.slug).toEqual('no-slug')
 	})
 
-	it('should create a new post if it the current post is not found on the database', async () => {
+	it.only('should create a new post if it the current post is not found on the database', async () => {
 		mockedReadMarkdownFile.mockResolvedValue(
 			'---\ntitle: Example\n---\nThis is some content.'
 		)

@@ -7,7 +7,7 @@ import {
 	getPost,
 	updatePost,
 } from '~/models/post.server'
-import { createSlugFromTitle } from './utils'
+import { createSlugFromTitle } from './createSlugFromTitle'
 
 /**
  * Processes a markdown file, updating the database if necessary.
@@ -19,7 +19,9 @@ export async function processPostFile(filename: string): Promise<Post> {
 	const markdownContent = await readMarkdownFile(filename)
 	const { data, content } = parseMarkdown(markdownContent)
 	if (!data.slug) {
+		console.log('Creating new slug...')
 		data.slug = createSlugFromTitle(data.title)
+		console.log('New slug: ', data.slug)
 	}
 
 	const author = await getOrCreateAuthor(data)

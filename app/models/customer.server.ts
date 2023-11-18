@@ -1,7 +1,7 @@
 import type { Lead } from '@prisma/client'
 import prisma from '~/db.server'
 import { handlePrismaError } from '~/utils/handlePrismaError'
-import { validateLeadInput } from '~/utils/utils'
+import { validateLeadInput } from '~/utils/validateLeadForm'
 
 export async function getLead(lead: Omit<Lead, 'id'>): Promise<Lead | null> {
 	validateLeadInput(lead)
