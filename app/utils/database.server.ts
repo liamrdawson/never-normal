@@ -9,12 +9,6 @@ import {
 } from '~/models/post.server'
 import { createSlugFromTitle } from './createSlugFromTitle'
 
-/**
- * Processes a markdown file, updating the database if necessary.
- *
- * @param {string} filename - The name of the markdown file to process.
- * @returns {Promise<Post>} The post object in the database.
- */
 export async function processPostFile(filename: string): Promise<Post> {
 	const markdownContent = await readMarkdownFile(filename)
 	const { data, content } = parseMarkdown(markdownContent)
@@ -50,11 +44,6 @@ export async function processPostFile(filename: string): Promise<Post> {
 	return currentPost
 }
 
-/**
- * Updates the posts table by processing markdown files.
- *
- * @returns {Promise<Post[]>} An array of post objects in the database.
- */
 export async function updatePostsTable(): Promise<Post[]> {
 	const filenames = await fs.readdir('./app/posts')
 	const posts = await Promise.all(filenames.map(processPostFile))
