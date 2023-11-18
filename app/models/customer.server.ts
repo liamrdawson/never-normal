@@ -1,10 +1,10 @@
 import type { Lead } from '@prisma/client'
 import prisma from '~/db.server'
 import { handlePrismaError } from '~/utils/handlePrismaError'
-import { validateLeadInput } from '~/utils/validateLeadForm'
+import { validateLeadForm } from '~/utils/leadForm'
 
 export async function getLead(lead: Omit<Lead, 'id'>): Promise<Lead | null> {
-	validateLeadInput(lead)
+	validateLeadForm(lead)
 	try {
 		const { firstName, email } = lead
 		console.log(`Finding lead with firstName: ${firstName} and email ${email}.`)
@@ -25,7 +25,7 @@ export async function getLead(lead: Omit<Lead, 'id'>): Promise<Lead | null> {
 }
 
 export async function createLead(lead: Omit<Lead, 'id'>): Promise<Lead> {
-	validateLeadInput(lead)
+	validateLeadForm(lead)
 
 	try {
 		const { firstName, email } = lead
