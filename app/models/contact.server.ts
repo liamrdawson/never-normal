@@ -3,6 +3,17 @@ import crypto from 'crypto'
 import { handlePrismaError } from '~/utils/handlePrismaError'
 import { validateContactForm } from '~/utils/contactForm'
 
+export async function getContactByExternalId(externalId: string) {
+	try {
+		const foundContact = await prisma.contact.findUnique({
+			where: { external_id: externalId },
+		})
+		return foundContact
+	} catch (error) {
+		throw error
+	}
+}
+
 export async function getContact({
 	firstName,
 	email,
