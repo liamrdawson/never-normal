@@ -13,7 +13,7 @@ import {
 	EmailForm,
 	links as EmailFormLinks,
 } from '~/components/organisms/EmailForm/EmailForm'
-import { getOrCreateLead } from '~/models/customer.server'
+import { getOrCreateContact } from '~/models/contact.server'
 
 export async function action({ request }: ActionFunctionArgs) {
 	const formData = await request.formData()
@@ -22,11 +22,11 @@ export async function action({ request }: ActionFunctionArgs) {
 	const email = formData.get('email')
 
 	if (name && email) {
-		const lead = {
+		const contact = {
 			firstName: name.toString(),
 			email: email.toString(),
 		}
-		return await getOrCreateLead(lead)
+		return await getOrCreateContact(contact)
 	}
 
 	return { name, email }

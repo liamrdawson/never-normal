@@ -8,32 +8,57 @@ generator client {
 }
 
 model Author {
-  id       Int @id @unique @default(autoincrement())
-  firstName     String
+  id        Int     @id @unique @default(autoincrement())
+  firstName String
   lastName  String
-  email    String @unique
-  twitter  String?
-  posts    Post[]
+  email     String  @unique
+  twitter   String?
+  posts     Post[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Post {
-  id       Int @id @unique @default(autoincrement())
-  slug     String @unique
-  title    String
-  markdown String @db.Text()
+  id        Int    @id @unique @default(autoincrement())
+  slug      String @unique
+  title     String
+  markdown  String @db.Text()
   likeCount Int
-  author   Author @relation(fields: [authorId], references: [id])
-  authorId Int // relation scalar field  (used in the `@relation` attribute above)
+  author    Author @relation(fields: [authorId], references: [id])
+  authorId  Int // relation scalar field  (used in the `@relation` attribute above)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Lead {
-  id        Int @id @unique @default(autoincrement())
-  firstName String
-  email     String @unique
+model Contact {
+  internal_contact_id Int    @id @unique @default(autoincrement())
+  external_id         String @unique
+  first_name          String
+  last_name           String?
+  email               String @unique
+
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  ContactProject ContactProject[]
+}
+
+model Project {
+  internal_project_id Int    @id @unique @default(autoincrement())
+  external_id         String @unique
+  project_name        String?
+
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  ContactProject ContactProject[]
+}
+
+model ContactProject {
+  contact    Contact @relation(fields: [contact_id], references: [internal_contact_id])
+  contact_id Int
+  project    Project @relation(fields: [project_id], references: [internal_project_id])
+  project_id Int
+
+  @@id([contact_id, project_id])
 }
