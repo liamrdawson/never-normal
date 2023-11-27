@@ -1,12 +1,3 @@
-/**
- *  1. Create a JWT which includes:
- *      a. a header
- *      b. a claim set
- *      c. a signature
- *  2. Request an access token from the Google OAuth 2.0 Authorization Server.
- *  3. Handle the JSON response that the Authorization Server returns.
- */
-
 import jwt from 'jsonwebtoken'
 
 export function getSignedJSONWebToken() {
@@ -33,7 +24,7 @@ export function getSignedJSONWebToken() {
 	return token
 }
 
-export async function getBearerToken() {
+export async function getToken() {
 	const signedJWT = getSignedJSONWebToken()
 
 	const data = {
@@ -50,5 +41,70 @@ export async function getBearerToken() {
 		.then((res) => res.json())
 		.catch((err) => console.error(err))
 
-	return response
+	return `${response.token_type} ${response.access_token}`
+}
+
+type Attendee = {
+	email: string
+	displayName: string
+	responseStatus: string
+}
+
+type EventResourceData = {
+	attendees: Attendee[]
+	startTime: Date
+	endTime: Date
+}
+
+export async function createNewCalendarEvent({
+	attendees,
+	startTime,
+	endTime,
+}: EventResourceData) {
+	const formatDateTime = (date: Date) => date.toISOString()
+
+	const eventResource = {
+		start: {
+			dateTime: formatDateTime(startTime),
+		},
+		end: {
+			dateTime: formatDateTime(endTime),
+		},
+		description: 'This is a description',
+		creator: {
+			displayName: 'Liam Dawson',
+			email: 'liam.dawson@nevernormalcommerce.com',
+			self: true,
+		},
+		organizer: {
+			displayName: 'Liam Dawson',
+			email: 'liam.dawson@nevernormalcommerce.com',
+			self: true,
+		},
+		attendees: [
+			{
+				email: 'liam.dawson@nevernormalcommerce.com',
+				displayName: 'Liam Dawson',
+				organizer: true,
+				self: true,
+				responseStatus: 'accepted',
+			},
+			...attendees,
+		],
+		guestsCanInviteOthers: true,
+		summary: 'This is a summary.',
+	}
+
+	const bearerToken = await getToken()
+	const data = await fetch(
+		'https://www.googleapis.com/calendar/v3/calendars/primary/events?sendUpdates=all',
+		{
+			method: 'POST',
+			headers: { authorization: bearerToken },
+			body: JSON.stringify(eventResource),
+		}
+	)
+		.then((res) => res.json())
+		.catch((error) => console.error(error))
+	return data
 }
