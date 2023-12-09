@@ -13,7 +13,7 @@ type EventResourceData = {
 	bearerToken: string
 }
 
-export async function createNewCalendarEvent({
+export async function postGoogleCalendarNewEvent({
 	attendees,
 	startTime,
 	endTime,
