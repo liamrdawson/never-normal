@@ -4,6 +4,7 @@ import type {
 	CalendlyUserAvailabilityScheduleResource,
 	ScheduleInterval,
 } from './calendlyAPI/getCalendlyUserAvailabilitySchedule.server'
+import { calculateAvailability } from './calculateAvailability'
 
 export function getNextSevenDaysFrom(date: DateTime<true>): DateTime<true>[] {
 	const nextSevenDays: DateTime<true>[] = []
@@ -14,19 +15,15 @@ export function getNextSevenDaysFrom(date: DateTime<true>): DateTime<true>[] {
 	return nextSevenDays
 }
 
-type ScheduleData = {
-	schedule: CalendlyUserAvailabilityScheduleResource
-	busyTimes: CalendlyUserBusyTime[]
-	rangeStart: DateTime
-	rangeEnd: DateTime
-}
-
 export function getAvailability({
 	schedule,
 	busyTimes,
 	rangeStart,
-	rangeEnd,
-}: ScheduleData) {
+}: {
+	schedule: CalendlyUserAvailabilityScheduleResource
+	busyTimes: CalendlyUserBusyTime[]
+	rangeStart: DateTime
+}) {
 	const range = getNextSevenDaysFrom(rangeStart)
 	// Iterate through each day within range
 	const dailyScheduleData = range.map((day) => {
@@ -34,6 +31,12 @@ export function getAvailability({
 		const scheduleInterval = schedule.rules
 			.find((rule) => rule.wday === day.weekdayLong.toLowerCase())
 			?.intervals.flat()[0]
+
+		// If there's no schedule interval today then there's no availability
+		if (!scheduleInterval) {
+			return {}
+		}
+
 		// Extract the busy times for this specific day
 		const busyTimesForDay = busyTimes.filter((busyTime) =>
 			DateTime.fromISO(busyTime.start_time)
@@ -41,6 +44,7 @@ export function getAvailability({
 				.equals(day.startOf('day'))
 		)
 
+		// Filter out any busy times that don't clash with the provided schedule
 		const overlappingBusyTimes = busyTimesForDay.filter((busyTime) =>
 			checkForBusyTimeOverlapWithScheduledTime({
 				day,
@@ -49,11 +53,14 @@ export function getAvailability({
 			})
 		)
 
-		return {
+		// Deduct all overlapping busy times from schedule
+		const availability = calculateAvailability({
 			day,
 			scheduleInterval,
-			overlappingBusyTimes,
-		}
+			busyTimes: overlappingBusyTimes,
+		})
+
+		return availability
 	})
 
 	return dailyScheduleData
@@ -92,46 +99,4 @@ export function checkForBusyTimeOverlapWithScheduledTime({
 		scheduleStartDateTime,
 		scheduleEndDateTime
 	).overlaps(Interval.fromDateTimes(busyTimeStartDateTime, busyTimeEndDateTime))
-}
-
-export function getScheduleDateTimeInterval({
-	day,
-	scheduleInterval,
-}: {
-	day: DateTime
-	scheduleInterval: ScheduleInterval | undefined
-}): Interval {
-	if (!scheduleInterval) {
-		return {} as Interval<false>
-	}
-
-	const [scheduleStartHour, scheduleStartMinute] = scheduleInterval.from
-		.split(':')
-		.map((val) => Number(val))
-	const [scheduleEndHour, scheduleEndMinute] = scheduleInterval.to
-		.split(':')
-		.map((val) => Number(val))
-	const scheduleStartDateTime = day.set({
-		hour: scheduleStartHour,
-		minute: scheduleStartMinute,
-	})
-	const scheduleEndDateTime = day.set({
-		hour: scheduleEndHour,
-		minute: scheduleEndMinute,
-	})
-	const scheduleDateTimeInterval = Interval.fromDateTimes(
-		scheduleStartDateTime,
-		scheduleEndDateTime
-	)
-	return scheduleDateTimeInterval
-}
-
-export function getBusyTimeDateTimeInterval(busyTime: CalendlyUserBusyTime) {
-	const busyTimeStartDateTime = DateTime.fromISO(busyTime.start_time)
-	const busyTimeEndDateTime = DateTime.fromISO(busyTime.end_time)
-	const busyTimeDateTimeInterval = Interval.fromDateTimes(
-		busyTimeStartDateTime,
-		busyTimeEndDateTime
-	)
-	return busyTimeDateTimeInterval
 }

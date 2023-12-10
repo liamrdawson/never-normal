@@ -5,9 +5,9 @@ export type CalendlyUserBusyTime = {
 	type: 'calendly' | 'external'
 	start_time: string
 	end_time: string
-	buffered_start_time: string
-	buffered_end_time: string
-	event: { uri: string }
+	buffered_start_time?: string
+	buffered_end_time?: string
+	event?: { uri: string }
 }
 
 export type CalendlyUserBusyTimes = {
