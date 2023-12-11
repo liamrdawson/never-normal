@@ -1,4 +1,4 @@
-import { DateTime, Interval } from 'luxon'
+import { DateTime, Duration, Interval } from 'luxon'
 import type { ScheduleInterval } from './calendlyAPI/getCalendlyUserAvailabilitySchedule.server'
 import type { CalendlyUserBusyTime } from './calendlyAPI/getCalendlyUserBusyTimes.server'
 
@@ -73,4 +73,40 @@ export function getBusyTimeDateTimeInterval(busyTime: CalendlyUserBusyTime) {
 		busyTimeEndDateTime
 	)
 	return busyTimeDateTimeInterval
+}
+
+type CalculateAvailableSlotsInput = {
+	meetingSlotDurationMinutes: number
+	meetingSlotBufferMinutes: number
+	availability: Interval[] | []
+}
+
+export function getAvailableSlots({
+	meetingSlotDurationMinutes,
+	meetingSlotBufferMinutes,
+	availability,
+}: CalculateAvailableSlotsInput) {
+	const slotWithBufferMinutes =
+		meetingSlotDurationMinutes + meetingSlotBufferMinutes
+
+	const slotsWithBufferDuration = Duration.fromObject({
+		minutes: slotWithBufferMinutes,
+	})
+
+	const availableSlots = availability
+		.flatMap((interval) => {
+			const slot = interval.splitBy(slotsWithBufferDuration)
+			return slot
+		})
+		.map((interval) => {
+			const slot = interval.splitBy({ minutes: 30 })[0]
+			if (
+				slot.toDuration('minutes').as('minutes') === meetingSlotDurationMinutes
+			) {
+				return slot
+			}
+			return null
+		})
+
+	return availableSlots
 }
