@@ -15,6 +15,15 @@ export function getNextSevenDaysFrom(date: DateTime<true>): DateTime<true>[] {
 	return nextSevenDays
 }
 
+type Availability = {
+	day: DateTime
+	scheduleInterval: ScheduleInterval | null
+	availability: Interval[] | []
+}
+/**
+ * Given a dayily schedule, a Calendly users busy times and a start date,
+ * this function will return an array of time intervals for every range of available time.
+ */
 export function getAvailability({
 	schedule,
 	busyTimes,
@@ -23,7 +32,7 @@ export function getAvailability({
 	schedule: CalendlyUserAvailabilityScheduleResource
 	busyTimes: CalendlyUserBusyTime[]
 	rangeStart: DateTime
-}) {
+}): Availability[] {
 	const range = getNextSevenDaysFrom(rangeStart)
 	// Iterate through each day within range
 	const dailyScheduleData = range.map((day) => {
@@ -34,7 +43,11 @@ export function getAvailability({
 
 		// If there's no schedule interval today then there's no availability
 		if (!scheduleInterval) {
-			return {}
+			return {
+				day,
+				scheduleInterval: null,
+				availability: [],
+			}
 		}
 
 		// Extract the busy times for this specific day
@@ -60,7 +73,11 @@ export function getAvailability({
 			busyTimes: overlappingBusyTimes,
 		})
 
-		return availability
+		return {
+			day,
+			scheduleInterval,
+			availability,
+		}
 	})
 
 	return dailyScheduleData
