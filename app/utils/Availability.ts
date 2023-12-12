@@ -8,7 +8,7 @@ import {
 	type ScheduleInterval,
 	type CalendlyUserAvailabilityScheduleResource,
 } from './calendlyAPI/getCalendlyUserAvailabilitySchedule.server'
-import { getNextSevenDaysFrom } from './getSevenDaysFrom'
+import { getDateTimeRange } from './getDateTimeRange'
 
 /**
  * Given a dayily schedule, a Calendly users busy times and a start date,
@@ -16,13 +16,26 @@ import { getNextSevenDaysFrom } from './getSevenDaysFrom'
  */
 export async function getAvailability({
 	rangeStart,
+	rangeEnd,
 }: {
 	rangeStart: DateTime
+	rangeEnd: DateTime
 }) {
-	const { collection: busyTimes } = await getCalendlyUserBusyTimes()
+	const rangeDays = rangeStart.diff(rangeEnd, 'days').toObject().days
+
+	if (rangeDays && rangeDays > 7) {
+		throw new Error(
+			'There can be no greater than seven days between a rangeStart and a rangeEnd.'
+		)
+	}
+
+	const { collection: busyTimes } = await getCalendlyUserBusyTimes({
+		rangeStart,
+		rangeEnd,
+	})
 	const { resource: schedule } = await getCalendlyWorkingHoursSchedule()
 
-	const range = getNextSevenDaysFrom(rangeStart)
+	const range = getDateTimeRange({ rangeStart, rangeEnd })
 	// Iterate through each day within range
 	const dailyAvailableSlots = range.map((day) =>
 		getDailyAvailableSlots({ day, busyTimes, schedule })
@@ -53,7 +66,7 @@ function getDailyAvailableSlots({
 	if (!scheduleInterval) {
 		return {
 			day,
-			availableSlotIntervals: [],
+			availableMeetingSlotIntervals: [],
 		}
 	}
 
@@ -81,7 +94,7 @@ function getDailyAvailableSlots({
 	})
 
 	// Divide availability intervals into meetings based on a given amount of buffer minutes and duration minutes
-	const availableSlotIntervals = getAvailableSlots({
+	const availableMeetingSlotIntervals = getAvailableSlots({
 		meetingSlotBufferMinutes: 15,
 		meetingSlotDurationMinutes: 30,
 		availability,
@@ -89,7 +102,7 @@ function getDailyAvailableSlots({
 
 	return {
 		day,
-		availableSlotIntervals,
+		availableMeetingSlotIntervals,
 	}
 }
 

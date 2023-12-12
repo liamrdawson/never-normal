@@ -9,7 +9,8 @@ import { DateTime } from 'luxon'
 export const loader = async ({ params }: LoaderFunctionArgs) => {
 	invariant(params.externalId, 'params.externalId is required.')
 	const rangeStart = DateTime.now()
-	const availability = await getAvailability({ rangeStart })
+	const rangeEnd = rangeStart.plus({ days: 6 })
+	const availability = await getAvailability({ rangeStart, rangeEnd })
 
 	const contact = await getContactByExternalId(params.externalId)
 	invariant(contact, 'page not found.')
@@ -22,8 +23,8 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 }
 
 export default function Onboarding() {
-	const { firstName } = useLoaderData<typeof loader>()
-
+	const { firstName, availability } = useLoaderData<typeof loader>()
+	console.log(availability)
 	return (
 		<main>
 			<h1>Onboarding</h1>

@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon'
+import type { DateTime } from 'luxon'
 import { getEnvVar } from '../getEnvVar'
 
 export type CalendlyUserBusyTime = {
@@ -14,14 +14,20 @@ export type CalendlyUserBusyTimes = {
 	collection: CalendlyUserBusyTime[]
 }
 
-export async function getCalendlyUserBusyTimes(): Promise<CalendlyUserBusyTimes> {
+export async function getCalendlyUserBusyTimes({
+	rangeStart,
+	rangeEnd,
+}: {
+	rangeStart: DateTime
+	rangeEnd: DateTime
+}): Promise<CalendlyUserBusyTimes> {
 	const baseUrl = getEnvVar('CALENDLY_API_BASE_URL')
 	const userUri = getEnvVar('CALENDLY_USER_URI')
-	const now = DateTime.now().toISO()
-	const end = DateTime.fromISO(now).plus({ days: 7 }).toISO()
+	const start = rangeStart.toISO()
+	const end = rangeEnd.toISO()
 
 	const busyTimes: CalendlyUserBusyTimes = await fetch(
-		`${baseUrl}/user_busy_times?user=${userUri}&start_time=${now}&end_time=${end}`,
+		`${baseUrl}/user_busy_times?user=${userUri}&start_time=${start}&end_time=${end}`,
 		{
 			method: 'GET',
 			headers: {
@@ -32,7 +38,7 @@ export async function getCalendlyUserBusyTimes(): Promise<CalendlyUserBusyTimes>
 	).then((res) => res.json())
 
 	console.log(
-		`${baseUrl}/user_busy_times?user=${userUri}&start_time=${now}&end_time=${end}`
+		`${baseUrl}/user_busy_times?user=${userUri}&start_time=${start}&end_time=${end}`
 	)
 
 	return busyTimes
