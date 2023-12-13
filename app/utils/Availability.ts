@@ -10,6 +10,11 @@ import {
 } from './calendlyAPI/getCalendlyUserAvailabilitySchedule.server'
 import { getDateTimeRange } from './getDateTimeRange'
 
+export type AvailableSlotsForDay = {
+	day: string | null
+	availableMeetingSlotIntervals: (Interval | null)[]
+}
+
 /**
  * Given a dayily schedule, a Calendly users busy times and a start date,
  * this function will return an array of time intervals for every range of available time.
@@ -20,7 +25,7 @@ export async function getAvailability({
 }: {
 	rangeStart: DateTime
 	rangeEnd: DateTime
-}) {
+}): Promise<AvailableSlotsForDay[]> {
 	const rangeDays = rangeStart.diff(rangeEnd, 'days').toObject().days
 
 	if (rangeDays && rangeDays > 7) {
@@ -65,7 +70,7 @@ function getDailyAvailableSlots({
 	// If there's no schedule interval today then there's no availability
 	if (!scheduleInterval) {
 		return {
-			day,
+			day: day.toISO(),
 			availableMeetingSlotIntervals: [],
 		}
 	}
@@ -101,7 +106,7 @@ function getDailyAvailableSlots({
 	})
 
 	return {
-		day,
+		day: day.toISO(),
 		availableMeetingSlotIntervals,
 	}
 }

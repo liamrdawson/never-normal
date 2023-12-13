@@ -5,6 +5,7 @@ import invariant from 'tiny-invariant'
 import { getContactByExternalId } from '~/models/contact.server'
 import { getAvailability } from '~/utils/availability'
 import { DateTime } from 'luxon'
+import { MeetingScheduler } from '~/components/organisms/MeetingScheduler/MeetingScheduler'
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
 	invariant(params.externalId, 'params.externalId is required.')
@@ -15,16 +16,14 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 	const contact = await getContactByExternalId(params.externalId)
 	invariant(contact, 'page not found.')
 
-	return json({
-		firstName: contact.first_name,
-		email: contact.email,
-		availability,
-	})
+	return json({ availability, firstName: contact.first_name } as const)
 }
 
 export default function Onboarding() {
-	const { firstName, availability } = useLoaderData<typeof loader>()
-	console.log(availability)
+	const data = useLoaderData<typeof loader>()
+
+	const { availability, firstName } = data
+
 	return (
 		<main>
 			<h1>Onboarding</h1>
@@ -33,6 +32,7 @@ export default function Onboarding() {
 				<span style={{ textTransform: 'capitalize' }}>{firstName}</span>, nice
 				to meet you 😎.
 			</h2>
+			<MeetingScheduler availableSlots={availability} />
 		</main>
 	)
 }
