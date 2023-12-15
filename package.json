@@ -4,7 +4,7 @@
 	"sideEffects": false,
 	"scripts": {
 		"build": "remix build",
-		"dev": "remix dev --manual",
+		"dev": "remix dev --sourcemap",
 		"start": "remix-serve ./build/index.js",
 		"typecheck": "tsc",
 		"test": "jest --silent",

@@ -12,12 +12,12 @@ import { getDateTimeRange } from './getDateTimeRange'
 
 export type AvailableSlotsForDay = {
 	day: string | null
-	availableMeetingSlotIntervals: (Interval | null)[]
+	availableMeetingSlotIntervals: string[]
 }
 
 /**
- * Given a dayily schedule, a Calendly users busy times and a start date,
- * this function will return an array of time intervals for every range of available time.
+ * Give a Calendly users schedule times and busy times, this function will return an array
+ * of available meeting slots.
  */
 export async function getAvailability({
 	rangeStart,
@@ -262,12 +262,7 @@ function getAvailableSlots({
 		})
 		.map((interval) => {
 			const slot = interval.splitBy({ minutes: 30 })[0]
-			if (
-				slot.toDuration('minutes').as('minutes') === meetingSlotDurationMinutes
-			) {
-				return slot
-			}
-			return null
+			return slot.toISO()
 		})
 
 	return availableSlots

@@ -37,9 +37,5 @@ export async function getCalendlyUserBusyTimes({
 		}
 	).then((res) => res.json())
 
-	console.log(
-		`${baseUrl}/user_busy_times?user=${userUri}&start_time=${start}&end_time=${end}`
-	)
-
 	return busyTimes
 }
