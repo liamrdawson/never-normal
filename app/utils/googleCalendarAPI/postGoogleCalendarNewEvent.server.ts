@@ -6,8 +6,8 @@ type Attendee = {
 
 type EventResourceData = {
 	attendees: Attendee[]
-	startTime: Date
-	endTime: Date
+	startTime: string
+	endTime: string
 	summary: string
 	description: string
 	bearerToken: string
@@ -21,7 +21,7 @@ export async function postGoogleCalendarNewEvent({
 	description,
 	bearerToken,
 }: EventResourceData) {
-	const formatDateTime = (date: Date) => date.toISOString()
+	// const formatDateTime = (date: Date) => date.toISOString()
 
 	const eventHost = {
 		displayName: 'Liam Dawson',
@@ -31,10 +31,10 @@ export async function postGoogleCalendarNewEvent({
 
 	const eventResource = {
 		start: {
-			dateTime: formatDateTime(startTime),
+			dateTime: startTime,
 		},
 		end: {
-			dateTime: formatDateTime(endTime),
+			dateTime: endTime,
 		},
 		description,
 		summary,

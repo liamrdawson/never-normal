@@ -1,13 +1,18 @@
-import type { LoaderFunctionArgs } from '@remix-run/node'
+import type { LinksFunction, LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import invariant from 'tiny-invariant'
 import { getContactByExternalId } from '~/models/contact.server'
 import { getAvailability } from '~/utils/availability'
 import { DateTime } from 'luxon'
-import { MeetingScheduler } from '~/components/organisms/MeetingScheduler/MeetingScheduler'
+import {
+	MeetingScheduler,
+	links as MeetingSchedulerLinks,
+} from '~/components/organisms/MeetingScheduler/MeetingScheduler'
 
-export const loader = async ({ request, params }: LoaderFunctionArgs) => {
+export const links: LinksFunction = () => [...MeetingSchedulerLinks()]
+
+export async function loader({ request, params }: LoaderFunctionArgs) {
 	const { externalId } = params
 
 	const url = new URL(request.url)
@@ -16,6 +21,8 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 
 	invariant(externalId, 'params.externalId is required.')
 
+	// ISO date strings are passed in as url params but some characters (e.g.+)
+	// are lost when the data is serialized.
 	const startParsed = start?.replace(/ /g, '+')
 	const endParsed = end?.replace(/ /g, '+')
 
