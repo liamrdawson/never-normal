@@ -27,37 +27,47 @@ export function MeetingScheduler({
 	>(weekdays[0])
 
 	useEffect(() => {
-		fetchedData && setSelectedDay(fetchedData.availability[0])
+		setSelectedDay(weekdays[0])
 	}, [fetchedData])
 
-	const rangeStart = DateTime.fromISO(
-		weekdays[weekdays.length - 1].day as string
-	)
-		.startOf('day')
-		.plus({ days: 1 })
-		.toISO()
-
-	const rangeEnd = DateTime.fromISO(rangeStart as string)
-		.plus({ days: 6 })
-		.toISO()
-
 	const handleLaterClick = () => {
-		// Get later dates
+		const rangeStart = DateTime.fromISO(
+			weekdays[weekdays.length - 1].day as string
+		)
+			.startOf('day')
+			.plus({ days: 1 })
+			.toISO()
+
+		const rangeEnd = DateTime.fromISO(rangeStart as string)
+			.plus({ days: 6 })
+			.toISO()
+
 		fetcher.load(
 			`/onboarding/${externalId}?start=${rangeStart}&end=${rangeEnd}`
 		)
 	}
 
-	// const handleEarlierClick = () => {
-	// 	// Get earler dates
-	// }
+	const handleEarlierClick = () => {
+		const rangeStart = DateTime.fromISO(weekdays[0].day as string)
+			.startOf('day')
+			.minus({ days: 7 })
+			.toISO()
+
+		const rangeEnd = DateTime.fromISO(rangeStart as string)
+			.plus({ days: 6 })
+			.toISO()
+
+		fetcher.load(
+			`/onboarding/${externalId}?start=${rangeStart}&end=${rangeEnd}`
+		)
+	}
 
 	return (
 		<div>
 			<h3>When can we meet?</h3>
 			<h4>{DateTime.fromISO(weekdays[0].day as string).monthLong}</h4>
 
-			<button>Earlier</button>
+			<button onClick={() => handleEarlierClick()}>Earlier</button>
 			{weekdays.map((day) => (
 				<button
 					key={`${day.day}-${availableSlots.indexOf(day)}`}
