@@ -31,8 +31,6 @@ describe('getAvailabilitySlots', () => {
 			availability: availablilityIntervals,
 		})
 
-		console.log(result)
-
 		expect(result).toEqual(meetingSlots)
 	})
 })

@@ -5,8 +5,6 @@ export function validateContactForm({
 	firstName: string
 	email: string
 }): void {
-	console.log('contact.firstName', Boolean(firstName))
-	console.log('contact.email', Boolean(typeof email))
 	if (!firstName || !email) {
 		throw new Error('Invalid input: firstName and email are required.')
 	}

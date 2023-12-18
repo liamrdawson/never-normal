@@ -45,9 +45,6 @@ export const meta: MetaFunction = () => {
 }
 
 export default function Index() {
-	const data = useActionData()
-	console.log(data)
-
 	return (
 		<main>
 			<HeroSection />
