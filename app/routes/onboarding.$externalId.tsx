@@ -34,11 +34,11 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 	const rangeStart = startParsed
 		? DateTime.fromISO(startParsed)
-		: DateTime.now().startOf('day')
+		: DateTime.now().startOf('day').plus({ days: 2 })
 
 	const rangeEnd = endParsed
 		? DateTime.fromISO(endParsed)
-		: DateTime.now().startOf('day').plus({ days: 6 })
+		: DateTime.now().startOf('day').plus({ days: 8 })
 
 	const availability = await getAvailability({ rangeStart, rangeEnd })
 

@@ -88,13 +88,21 @@ export function MeetingScheduler({
 		? Interval.fromISO(selectedSlot).end?.toISO()
 		: undefined
 
+	const firstDayDateTime = DateTime.fromISO(weekdays[0].day as string)
+	const today = DateTime.now().startOf('day')
+	const firstDayIsTodayOrEarlier = firstDayDateTime <= today.plus({ days: 2 })
+
 	return (
 		<div>
 			<h3>When can we meet?</h3>
 			<Form method='post' action={`/onboarding/${externalId}`}>
 				<h4>{DateTime.fromISO(weekdays[0].day as string).monthLong}</h4>
 
-				<button type='button' onClick={() => handleEarlierClick()}>
+				<button
+					type='button'
+					onClick={() => handleEarlierClick()}
+					disabled={firstDayIsTodayOrEarlier}
+				>
 					Earlier
 				</button>
 				{isFetching ? (
