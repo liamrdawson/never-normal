@@ -1,4 +1,8 @@
-import type { LinksFunction, LoaderFunctionArgs } from '@remix-run/node'
+import type {
+	ActionFunctionArgs,
+	LinksFunction,
+	LoaderFunctionArgs,
+} from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import invariant from 'tiny-invariant'
@@ -9,6 +13,8 @@ import {
 	MeetingScheduler,
 	links as MeetingSchedulerLinks,
 } from '~/components/organisms/MeetingScheduler/MeetingScheduler'
+import { getToken } from '~/utils/googleCalendarAPI/googleAPIAuth.server'
+import { postGoogleCalendarNewEvent } from '~/utils/googleCalendarAPI/postGoogleCalendarNewEvent.server'
 
 export const links: LinksFunction = () => [...MeetingSchedulerLinks()]
 
@@ -42,13 +48,34 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 		availability,
 		firstName: contact.first_name,
 		externalId: externalId,
+		email: contact.email,
 	} as const)
+}
+
+export async function action({ request }: ActionFunctionArgs) {
+	const body = await request.formData()
+	const bearerToken = await getToken()
+	const attendees = body.getAll('attendees').toString()
+	const startTime = body.get('startTime')?.toString()
+	const endTime = body.get('endTime')?.toString()
+	if (attendees && startTime && endTime) {
+		const meeting = postGoogleCalendarNewEvent({
+			attendees: [JSON.parse(attendees)],
+			startTime,
+			endTime,
+			summary: 'test summary',
+			description: 'test description',
+			bearerToken,
+		})
+		return meeting
+	}
+	return body
 }
 
 export default function Onboarding() {
 	const data = useLoaderData<typeof loader>()
 
-	const { availability, firstName, externalId } = data
+	const { availability, firstName, externalId, email } = data
 
 	return (
 		<main>
@@ -58,7 +85,12 @@ export default function Onboarding() {
 				<span style={{ textTransform: 'capitalize' }}>{firstName}</span>, nice
 				to meet you 😎.
 			</h2>
-			<MeetingScheduler availableSlots={availability} externalId={externalId} />
+			<MeetingScheduler
+				availableSlots={availability}
+				externalId={externalId}
+				email={email}
+				name={firstName}
+			/>
 		</main>
 	)
 }

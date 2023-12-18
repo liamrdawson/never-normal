@@ -248,11 +248,11 @@ function getAvailableSlots({
 	meetingSlotBufferMinutes,
 	availability,
 }: CalculateAvailableSlotsInput) {
-	const slotWithBufferMinutes =
+	const slotPlusBufferMinutes =
 		meetingSlotDurationMinutes + meetingSlotBufferMinutes
 
 	const slotsWithBufferDuration = Duration.fromObject({
-		minutes: slotWithBufferMinutes,
+		minutes: slotPlusBufferMinutes,
 	})
 
 	const availableSlots = availability
@@ -264,6 +264,11 @@ function getAvailableSlots({
 			const slot = interval.splitBy({ minutes: 30 })[0]
 			return slot.toISO()
 		})
+		.filter(
+			(interval) =>
+				Interval.fromISO(interval).toDuration('minutes').toObject().minutes ===
+				30
+		)
 
 	return availableSlots
 }
